@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Lunar;
 
 public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
 {
+    #region defining
     internal LunarYue(int nianIndex, int yueIndexInNian)
     {
         this.nianIndex = nianIndex;
@@ -35,7 +37,26 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
             return big ? 30 : 29;
         }
     }
+    #endregion
 
+    #region converting
+    public LunarDateTime GetDateTime(int ri, Dizhi shi)
+    {
+        if (ri <= 0 || ri > this.RiCount)
+            throw new ArgumentOutOfRangeException(nameof(ri));
+        return new LunarDateTime(this, ri, shi);
+    }
+
+    /// <inheritdoc />
+    public override string ToString()
+    {
+        var nian = this.Nian;
+        return $"{(this.IsRunyue ? 'L' : 'C')}{this.Yue} " +
+            $"({nian.Niangan}{nian.Nianzhi}{this.Nian.Year}[{this.YueIndexInNian}])";
+    }
+    #endregion
+
+    #region comparing
     /// <inheritdoc />
     public int CompareTo(LunarYue? other)
     {
@@ -67,10 +88,5 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     {
         return HashCode.Combine(this.nianIndex, this.YueIndexInNian);
     }
-
-    /// <inheritdoc />
-    public override string ToString()
-    {
-        return $"{(this.IsRunyue ? 'L' : 'C')}{this.Yue} ({this.Nian.Year}[{this.YueIndexInNian}])";
-    }
+    #endregion
 }

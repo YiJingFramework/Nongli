@@ -1,33 +1,94 @@
-﻿using YiJingFramework.Nongli.Extensions;
+﻿using System.Diagnostics;
+using YiJingFramework.Nongli.Extensions;
 using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Lunar;
 
-public sealed partial class LunarDateTime
+/// <summary>
+/// 农历（阴历部分）的日期和时间。
+/// A date time of Nongli (lunar part).
+/// </summary>
+public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatable<LunarDateTime>
 {
-    internal LunarDateTime(LunarYue yue, int ri, Dizhi shi)
+    #region defining
+    internal LunarDateTime(LunarYue yue, int riChecked, Dizhi shi)
     {
-        if (ri <= 0 || ri > yue.RiCount)
-            throw new ArgumentOutOfRangeException(nameof(ri));
+        Debug.Assert(riChecked > 0 || riChecked <= yue.RiCount);
         this.lunarNian = yue.Nian;
         this.LunarYue = yue;
-        this.Ri = ri;
+        this.Ri = riChecked;
         this.Shi = shi;
     }
 
     private readonly LunarNian lunarNian;
+    /// <summary>
+    /// 年，以 <seealso cref="LunarNian"/> 为结果类型。
+    /// The Nian, with <seealso cref="LunarNian"/> as the result type.
+    /// </summary>
     public LunarNian LunarNian => new(this.lunarNian);
-    public int GregorianYear => this.lunarNian.Year;
+    /// <summary>
+    /// 年首所在的公历年。
+    /// 当前日期不一定位于此公历年。
+    /// The Gregorian year in which the first day of the Nian is.
+    /// The current date does not necessarily be in this Gregorian year.
+    /// </summary>
+    public int Year => this.lunarNian.Year;
+    /// <summary>
+    /// 年干。
+    /// The Nian's Tiangan.
+    /// </summary>
     public Tiangan Niangan => this.lunarNian.Niangan;
+    /// <summary>
+    /// 年年。
+    /// The Nian's Dizhi.
+    /// </summary>
     public Dizhi Nianzhi => this.lunarNian.Nianzhi;
 
+    /// <summary>
+    /// 月，以 <seealso cref="LunarYue"/> 为结果类型。
+    /// The Yue, with <seealso cref="LunarYue"/> as the result type.
+    /// </summary>
     public LunarYue LunarYue { get; }
+    /// <summary>
+    /// 月。
+    /// The Yue.
+    /// </summary>
     public int Yue => this.LunarYue.Yue;
+    /// <summary>
+    /// 指定月是否为闰月。
+    /// Indicate whether the Yue is a Runyue.
+    /// </summary>
     public bool IsRunyue => this.LunarYue.IsRunyue;
 
+    /// <summary>
+    /// 日。
+    /// The Ri.
+    /// </summary>
     public int Ri { get; }
+    /// <summary>
+    /// 时。
+    /// The Shi.
+    /// </summary>
     public Dizhi Shi { get; }
+    #endregion
 
+    #region converting
+    /// <summary>
+    /// 从公历日期和时间创建表示相同时间的 <seealso cref="LunarDateTime"/> 的实例。
+    /// Create an instance of <seealso cref="LunarDateTime"/> from a Gregorian date time which represent the same time.
+    /// </summary>
+    /// <param name="dateTime">
+    /// 公历日期和时间。
+    /// The Gregorian date time.
+    /// </param>
+    /// <returns>
+    /// 转换结果。
+    /// The conversion result.
+    /// </returns>
+    /// <exception cref="NotSupportedException">
+    /// 传入的公历日期和时间不在支持范围内。
+    /// The given Gregorian date time is not in the supported range.
+    /// </exception>
     public static LunarDateTime FromGregorian(DateTime dateTime)
     {
         static NotSupportedException NotSupportedDateTime(DateTime dateTime)
@@ -54,6 +115,15 @@ public sealed partial class LunarDateTime
         }
         throw NotSupportedDateTime(originalDateTime);
     }
+
+    /// <summary>
+    /// 创建表示相同时间的公历日期和时间。
+    /// Create a Gregorian date time which represents the same time.
+    /// </summary>
+    /// <returns>
+    /// 转换结果。
+    /// The conversion result.
+    /// </returns>
     public DateTime ToGregorian()
     {
         var nianIndex = this.lunarNian.NianIndex;
@@ -70,4 +140,55 @@ public sealed partial class LunarDateTime
         var dateOnly = DateOnly.FromDayNumber(dayNumber);
         return dateOnly.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
     }
+
+    /// <inheritdoc />
+    public override string ToString()
+    {
+        return $"N:{this.Niangan}-{this.Nianzhi}({this.Year:0000}) " +
+            $"Y:{(this.IsRunyue ? 'L' : 'C')}{this.Yue:00} " +
+            $"R:{this.Ri:00} " +
+            $"S:{this.Shi}";
+    }
+    #endregion
+
+    #region comparing
+    /// <inheritdoc />
+    public int CompareTo(LunarDateTime? other)
+    {
+        var result = this.LunarYue.CompareTo(other?.LunarYue);
+        if (result is not 0)
+            return result;
+        Debug.Assert(other is not null);
+
+        result = this.Ri.CompareTo(other.Ri);
+        if (result is not 0)
+            return result;
+
+        return this.Shi.CompareTo(other.Shi);
+    }
+
+    /// <inheritdoc />
+    public bool Equals(LunarDateTime? other)
+    {
+        if (!this.LunarYue.Equals(other?.LunarYue))
+            return false;
+        if (this.Ri.Equals(other.Ri))
+            return false;
+        return this.Shi.Equals(other.Shi);
+    }
+
+    /// <inheritdoc />
+    public override bool Equals(object? obj)
+    {
+        if (obj is LunarDateTime other)
+            return this.Equals(other);
+        return false;
+    }
+
+    /// <inheritdoc />
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(this.LunarYue, Ri, Shi);
+    }
+    #endregion
 }
