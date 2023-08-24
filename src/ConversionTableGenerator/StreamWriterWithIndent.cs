@@ -12,23 +12,23 @@ public sealed class StreamWriterWithIndent : IDisposable
     }
     public void Write(string s)
     {
-        if (isNewLine)
+        if (this.isNewLine)
         {
-            for (int i = 0; i < Indent * 4; i++)
-                writer.Write(' ');
-            isNewLine = false;
+            for (int i = 0; i < this.Indent * 4; i++)
+                this.writer.Write(' ');
+            this.isNewLine = false;
         }
-        writer.Write(s);
+        this.writer.Write(s);
     }
     public void WriteLine(string? s = null)
     {
-        if (isNewLine)
+        if (this.isNewLine)
         {
-            for (int i = 0; i < Indent * 4; i++)
-                writer.Write(' ');
+            for (int i = 0; i < this.Indent * 4; i++)
+                this.writer.Write(' ');
         }
-        writer.WriteLine(s);
-        isNewLine = true;
+        this.writer.WriteLine(s);
+        this.isNewLine = true;
     }
     public void Dispose()
     {

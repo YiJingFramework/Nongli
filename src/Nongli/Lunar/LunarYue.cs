@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Lunar;
 
@@ -14,30 +13,28 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     private readonly int nianIndex;
     public int YueIndexInNian { get; }
 
-    public LunarNian Nian => new LunarNian(nianIndex);
+    public LunarNian Nian => new LunarNian(this.nianIndex);
     public int Yue
     {
         get
         {
             var runyue = LunarTables.RunyueIndexTable[this.nianIndex];
             if (runyue is 0 || this.YueIndexInNian < runyue)
-                return YueIndexInNian + 1;
+                return this.YueIndexInNian + 1;
             else
-                return YueIndexInNian;
+                return this.YueIndexInNian;
         }
     }
-    public bool IsRunyue => LunarTables.RunyueIndexTable[this.nianIndex] == YueIndexInNian;
+    public bool IsRunyue => LunarTables.RunyueIndexTable[this.nianIndex] == this.YueIndexInNian;
     public int RiCount
     {
         get
         {
-            var mask = 0b1_0000_0000_0000 >> YueIndexInNian;
+            var mask = 0b1_0000_0000_0000 >> this.YueIndexInNian;
             var big = (LunarTables.RiCountOfYueTable[this.nianIndex] & mask) > 0;
             return big ? 30 : 29;
         }
     }
-
-    public LunarDateTime FirstRi => new LunarDateTime(this, 1, Dizhi.Zi);
 
     /// <inheritdoc />
     public int CompareTo(LunarYue? other)
@@ -68,12 +65,12 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.nianIndex, YueIndexInNian);
+        return HashCode.Combine(this.nianIndex, this.YueIndexInNian);
     }
 
     /// <inheritdoc />
     public override string ToString()
     {
-        return $"{(IsRunyue ? 'L' : 'C')}{Yue} ({this.Nian.Year}[{YueIndexInNian}])";
+        return $"{(this.IsRunyue ? 'L' : 'C')}{this.Yue} ({this.Nian.Year}[{this.YueIndexInNian}])";
     }
 }

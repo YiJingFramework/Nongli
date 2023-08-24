@@ -10,17 +10,17 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     {
         Debug.Assert(checkedNianIndex >= 0 && checkedNianIndex < LunarTables.NianStartDayNumberTable.Length);
         this.NianIndex = checkedNianIndex;
-        this.yueListLazy = new(LoadYueList, true);
+        this.yueListLazy = new(this.LoadYueList, true);
     }
     internal LunarNian(LunarNian nian) : this(nian.NianIndex) { }
 
     internal int NianIndex { get; }
-    public int Year => NianIndex + LunarTables.STARTING_NIAN;
-    public Tiangan Niangan => new(LunarTables.STARTING_NIAN_GAN_INDEX + NianIndex);
-    public Dizhi Nianzhi => new(LunarTables.STARTING_NIAN_ZHI_INDEX + NianIndex);
+    public int Year => this.NianIndex + LunarTables.STARTING_NIAN;
+    public Tiangan Niangan => new(LunarTables.STARTING_NIAN_GAN_INDEX + this.NianIndex);
+    public Dizhi Nianzhi => new(LunarTables.STARTING_NIAN_ZHI_INDEX + this.NianIndex);
 
     private readonly Lazy<IReadOnlyList<LunarYue>> yueListLazy;
-    public IReadOnlyList<LunarYue> YueList => yueListLazy.Value;
+    public IReadOnlyList<LunarYue> YueList => this.yueListLazy.Value;
     private IReadOnlyList<LunarYue> LoadYueList()
     {
         var yueCount = LunarTables.RunyueIndexTable[this.NianIndex] is 0 ? 12 : 13;
@@ -58,6 +58,6 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     /// <inheritdoc />
     public override string ToString()
     {
-        return $"{Niangan}-{Nianzhi} ({Year})";
+        return $"{this.Niangan}-{this.Nianzhi} ({this.Year})";
     }
 }

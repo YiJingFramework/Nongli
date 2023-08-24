@@ -16,7 +16,7 @@ using System.Diagnostics;
     writer.WriteLine($"internal static class LunarTables");
     writer.WriteLine($"{{");
     writer.Indent++;
-    foreach(var property in properties)
+    foreach (var property in properties)
     {
         property.WriteDefinition(writer);
         writer.WriteLine();
@@ -27,7 +27,7 @@ using System.Diagnostics;
     writer.WriteLine($"{{");
     writer.Indent++;
 
-    foreach(var property in properties)
+    foreach (var property in properties)
     {
         writer.WriteLine($"{{");
         writer.Indent++;

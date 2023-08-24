@@ -1,5 +1,4 @@
-﻿using System;
-using YiJingFramework.Nongli.Extensions;
+﻿using YiJingFramework.Nongli.Extensions;
 using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Lunar;
@@ -17,14 +16,14 @@ public sealed partial class LunarDateTime
     }
 
     private readonly LunarNian lunarNian;
-    public LunarNian LunarNian => new(lunarNian);
-    public int GregorianYear => lunarNian.Year;
-    public Tiangan Niangan => lunarNian.Niangan;
-    public Dizhi Nianzhi => lunarNian.Nianzhi;
+    public LunarNian LunarNian => new(this.lunarNian);
+    public int GregorianYear => this.lunarNian.Year;
+    public Tiangan Niangan => this.lunarNian.Niangan;
+    public Dizhi Nianzhi => this.lunarNian.Nianzhi;
 
     public LunarYue LunarYue { get; }
-    public int Yue => LunarYue.Yue;
-    public bool IsRunyue => LunarYue.IsRunyue;
+    public int Yue => this.LunarYue.Yue;
+    public bool IsRunyue => this.LunarYue.IsRunyue;
 
     public int Ri { get; }
     public Dizhi Shi { get; }
@@ -57,11 +56,11 @@ public sealed partial class LunarDateTime
     }
     public DateTime ToGregorian()
     {
-        var nianIndex = lunarNian.NianIndex;
+        var nianIndex = this.lunarNian.NianIndex;
         var dayNumber = LunarTables.NianStartDayNumberTable[nianIndex];
         foreach (var yue in new LunarNian(nianIndex).YueList)
         {
-            if (yue.YueIndexInNian == LunarYue.YueIndexInNian)
+            if (yue.YueIndexInNian == this.LunarYue.YueIndexInNian)
             {
                 dayNumber += this.Ri - 1;
                 break;
