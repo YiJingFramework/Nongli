@@ -1,20 +1,26 @@
-﻿using YiJingFramework.PrimitiveTypes;
+﻿using System;
+using YiJingFramework.Nongli.Extensions;
+using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Lunar;
 
 public sealed partial class LunarDateTime
 {
-    private LunarDateTime(LunarYue yue, int ri, Dizhi shi)
+    internal LunarDateTime(LunarYue yue, int ri, Dizhi shi)
     {
+        if (ri <= 0 || ri > yue.RiCount)
+            throw new ArgumentOutOfRangeException(nameof(ri));
+        this.lunarNian = yue.Nian;
         this.LunarYue = yue;
         this.Ri = ri;
         this.Shi = shi;
     }
 
-    public LunarNian LunarNian => LunarYue.Nian;
-    public int GregorianYear => LunarNian.GregorianYear;
-    public Tiangan Niangan => LunarNian.Niangan;
-    public Dizhi Nianzhi => LunarNian.Nianzhi;
+    private readonly LunarNian lunarNian;
+    public LunarNian LunarNian => new(lunarNian);
+    public int GregorianYear => lunarNian.Year;
+    public Tiangan Niangan => lunarNian.Niangan;
+    public Dizhi Nianzhi => lunarNian.Nianzhi;
 
     public LunarYue LunarYue { get; }
     public int Yue => LunarYue.Yue;
@@ -22,4 +28,47 @@ public sealed partial class LunarDateTime
 
     public int Ri { get; }
     public Dizhi Shi { get; }
+
+    public static LunarDateTime FromGregorian(DateTime dateTime)
+    {
+        static NotSupportedException NotSupportedDateTime(DateTime dateTime)
+        {
+            return new NotSupportedException(
+                $"The date time ({dateTime:yyyy/MM/dd HH:mm}) is not in the supported range.");
+        }
+
+        var originalDateTime = dateTime;
+        if (dateTime.Hour is 23)
+            dateTime = dateTime.Add(new TimeSpan(1, 0, 0));
+
+        var dayNumber = DateOnly.FromDateTime(dateTime).DayNumber;
+        var nianIndex = LunarTables.NianStartDayNumberTable.SortedFindFloor(dayNumber);
+        if (nianIndex is -1)
+            throw NotSupportedDateTime(originalDateTime);
+
+        var restDayCount = dayNumber - LunarTables.NianStartDayNumberTable[nianIndex];
+        var nian = new LunarNian(nianIndex);
+        foreach (var yue in nian.YueList)
+        {
+            if (restDayCount < yue.RiCount)
+                return new(yue, restDayCount + 1, new((dateTime.Hour + 3) / 2));
+        }
+        throw NotSupportedDateTime(originalDateTime);
+    }
+    public DateTime ToGregorian()
+    {
+        var nianIndex = lunarNian.NianIndex;
+        var dayNumber = LunarTables.NianStartDayNumberTable[nianIndex];
+        foreach (var yue in new LunarNian(nianIndex).YueList)
+        {
+            if (yue.YueIndexInNian == LunarYue.YueIndexInNian)
+            {
+                dayNumber += this.Ri - 1;
+                break;
+            }
+            dayNumber += yue.RiCount;
+        }
+        var dateOnly = DateOnly.FromDayNumber(dayNumber);
+        return dateOnly.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
+    }
 }
