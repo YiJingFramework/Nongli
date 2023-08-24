@@ -24,7 +24,8 @@ internal sealed class RiCountOfYueTable : IPropertyWriter
     public void WriteInitialization(StreamWriterWithIndent writer)
     {
         writer.WriteLine($"// {this.propertyName}");
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>();");
+        var count = this.endingYear - this.startingYear;
+        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count});");
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
             writer.Write($"builder.Add(0b");

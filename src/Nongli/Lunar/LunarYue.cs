@@ -51,7 +51,15 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     /// 指示此月是否为闰月。
     /// Indicates whether this Yue is a Runye.
     /// </summary>
-    public bool IsRunyue => LunarTables.RunyueIndexTable[this.nianIndex] == this.YueIndexInNian;
+    public bool IsRunyue
+    {
+        get
+        {
+            // TODO: 这样的话是不是把闰月改成负一之类的会更好一些？
+            return this.YueIndexInNian is not 0 &&
+                LunarTables.RunyueIndexTable[this.nianIndex] == this.YueIndexInNian;
+        }
+    }
 
     /// <summary>
     /// 此月中日的数量。

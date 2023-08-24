@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Diagnostics;
 using YiJingFramework.PrimitiveTypes;
 
@@ -56,13 +55,24 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
 
     #region converting
     /// <summary>
+    /// 最小支持到的年（含）。
+    /// The minimum supported Nian (included).
+    /// </summary>
+    public static LunarNian MinSupportedNian => new(0);
+    /// <summary>
+    /// 最大支持到的年（含）。
+    /// The maximum supported Nian (included).
+    /// </summary>
+    public static LunarNian MaxSupportedNian => new(LunarTables.NianStartDayNumberTable.Length - 1);
+
+    /// <summary>
     /// 根据此年年首所在的公历年创建 <seealso cref="LunarNian"/> 的实例。
     /// Create an instance of <seealso cref="LunarNian"/> from the Gregorian year in which the first day of this Nian is.
     /// </summary>
     public static LunarNian FromGregorian(int year)
     {
         var nianIndex = year - LunarTables.STARTING_NIAN;
-        if(nianIndex < 0 || nianIndex >= LunarTables.NianStartDayNumberTable.Length)
+        if (nianIndex < 0 || nianIndex >= LunarTables.NianStartDayNumberTable.Length)
             throw new NotSupportedException($"The year ({year}) is not in the supported range.");
         return new LunarNian(nianIndex);
     }

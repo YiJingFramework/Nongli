@@ -20,7 +20,8 @@ internal sealed class NianStartDayNumberTable : IPropertyWriter
     public void WriteInitialization(StreamWriterWithIndent writer)
     {
         writer.WriteLine($"// {this.propertyName}");
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>();");
+        var count = this.endingYear - this.startingYear;
+        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count});");
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
             var firstDaySolar = global::Lunar.Lunar.FromYmdHms(year, 1, 1).Solar;

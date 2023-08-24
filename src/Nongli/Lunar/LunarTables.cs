@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 
 namespace YiJingFramework.Nongli.Lunar;
+
 internal static class LunarTables
 {
     internal const int STARTING_NIAN = 1901;
@@ -22,7 +23,7 @@ internal static class LunarTables
 
         {
             // NianStartDayNumberTable
-            var builder = ImmutableArray.CreateBuilder<int>();
+            var builder = ImmutableArray.CreateBuilder<int>(199);
             builder.Add(694009); // 1901 2-19
             builder.Add(694363); // 1902 2-8
             builder.Add(694718); // 1903 1-29
@@ -227,7 +228,7 @@ internal static class LunarTables
 
         {
             // RunyueIndexTable
-            var builder = ImmutableArray.CreateBuilder<byte>();
+            var builder = ImmutableArray.CreateBuilder<byte>(199);
             builder.Add(0); // 1901
             builder.Add(0); // 1902
             builder.Add(5); // 1903
@@ -433,7 +434,7 @@ internal static class LunarTables
 
         {
             // RiCountOfYueTable
-            var builder = ImmutableArray.CreateBuilder<short>();
+            var builder = ImmutableArray.CreateBuilder<short>(199);
             builder.Add(0b0100101011100); // 1901 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 C29 
             builder.Add(0b1010010101110); // 1902 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 
             builder.Add(0b0101001001101); // 1903 C29 C30 C29 C30 C29 L29 C30 C29 C29 C30 C30 C29 C30 

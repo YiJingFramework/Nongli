@@ -22,7 +22,8 @@ internal sealed class RunyueIndexTable : IPropertyWriter
     public void WriteInitialization(StreamWriterWithIndent writer)
     {
         writer.WriteLine($"// {this.propertyName}");
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>();");
+        var count = this.endingYear - this.startingYear;
+        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count});");
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
             var runyue = LunarYear.FromYear(year).LeapMonth;
