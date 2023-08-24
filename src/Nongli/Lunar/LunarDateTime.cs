@@ -55,7 +55,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
     /// </summary>
     public int Yue => this.LunarYue.Yue;
     /// <summary>
-    /// 指定月是否为闰月。
+    /// 指示月是否为闰月。
     /// Indicate whether the Yue is a Runyue.
     /// </summary>
     public bool IsRunyue => this.LunarYue.IsRunyue;
@@ -188,7 +188,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.LunarYue, Ri, Shi);
+        return HashCode.Combine(this.LunarYue, this.Ri, this.Shi);
     }
     #endregion
 }

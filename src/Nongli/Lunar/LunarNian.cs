@@ -22,27 +22,27 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
 
     internal int NianIndex { get; }
     /// <summary>
-    /// 年首所在的公历年。
+    /// 此年年首所在的公历年。
     /// 不是全年都在此公历年内。
-    /// The Gregorian year in which the first day of the Nian is.
-    /// Not all the days in the Nian are in this Gregorian year.
+    /// The Gregorian year in which the first day of this Nian is.
+    /// Not all the days in this Nian are in this Gregorian year.
     /// </summary>
     public int Year => this.NianIndex + LunarTables.STARTING_NIAN;
     /// <summary>
-    /// 年干。
-    /// The Nian's Tiangan.
+    /// 此年年干。
+    /// This Nian's Tiangan.
     /// </summary>
     public Tiangan Niangan => new(LunarTables.STARTING_NIAN_GAN_INDEX + this.NianIndex);
     /// <summary>
-    /// 年支。
-    /// The Nian's Dizhi.
+    /// 此年年支。
+    /// This Nian's Dizhi.
     /// </summary>
     public Dizhi Nianzhi => new(LunarTables.STARTING_NIAN_ZHI_INDEX + this.NianIndex);
 
     private readonly Lazy<IReadOnlyList<LunarYue>> yueListLazy;
     /// <summary>
     /// 此年中的月。
-    /// Yues in the Nian.
+    /// Yues in this Nian.
     /// </summary>
     public IReadOnlyList<LunarYue> YueList => this.yueListLazy.Value;
     private IReadOnlyList<LunarYue> LoadYueList()
@@ -55,6 +55,10 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     #endregion
 
     #region converting
+    /// <summary>
+    /// 根据此年年首所在的公历年创建 <seealso cref="LunarNian"/> 的实例。
+    /// Create an instance of <seealso cref="LunarNian"/> from the Gregorian year in which the first day of this Nian is.
+    /// </summary>
     public static LunarNian FromGregorian(int year)
     {
         var nianIndex = year - LunarTables.STARTING_NIAN;
