@@ -110,8 +110,10 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
         var nian = new LunarNian(nianIndex);
         foreach (var yue in nian.YueList)
         {
-            if (restDayCount < yue.RiCount)
+            var newRest = restDayCount - yue.RiCount;
+            if (newRest < 0)
                 return new(yue, restDayCount + 1, new((dateTime.Hour + 3) / 2));
+            restDayCount = newRest;
         }
         throw NotSupportedDateTime(originalDateTime);
     }

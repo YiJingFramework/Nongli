@@ -109,7 +109,7 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     {
         var nian = this.Nian;
         return $"{(this.IsRunyue ? 'L' : 'C')}{this.Yue} " +
-            $"({nian.Niangan}{nian.Nianzhi}{this.Nian.Year}[{this.YueIndexInNian}])";
+            $"({nian.Niangan}{nian.Nianzhi}{nian.Year}[{this.YueIndexInNian}])";
     }
     #endregion
 
