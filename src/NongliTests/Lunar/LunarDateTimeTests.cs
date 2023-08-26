@@ -11,7 +11,7 @@ public class LunarDateTimeTests
     [TestMethod()]
     public void CorrectnessTest()
     {
-        static void AssertSolar(L.Solar expected, DateTime actual)
+        static void AssertGregorian(L.Solar expected, DateTime actual)
         {
             Assert.AreEqual(expected.Year, actual.Year);
             Assert.AreEqual(expected.Month, actual.Month);
@@ -45,7 +45,7 @@ public class LunarDateTimeTests
             lunarMonth: 1,
             lunarDay: 1,
             hour: 0).Solar;
-        AssertSolar(minSolarL, minDateTime);
+        AssertGregorian(minSolarL, minDateTime);
 
         var maxDateTime = LunarNian.MaxSupportedNian.YueList[^1].GetDateTime(
             LunarNian.MaxSupportedNian.YueList[^1].RiCount, Dizhi.Hai)
@@ -55,7 +55,7 @@ public class LunarDateTimeTests
             lunarMonth: 12,
             lunarDay: LunarYear.FromYear(LunarNian.MaxSupportedNian.Year).MonthsInYear[^1].DayCount,
             hour: 22).Solar;
-        AssertSolar(maxSolarL, maxDateTime);
+        AssertGregorian(maxSolarL, maxDateTime);
 
         IEnumerable<DateTime> EnumerateTestingDateTime()
         {

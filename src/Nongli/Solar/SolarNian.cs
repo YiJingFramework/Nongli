@@ -15,7 +15,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
     #region defining
     internal SolarNian(int nianIndex)
     {
-        Debug.Assert(nianIndex >= 0 && nianIndex * 24 < SolarTables.JieQiTickTable.Length);
+        Debug.Assert(nianIndex >= 0 && nianIndex < SolarTables.JieQiTickTable.Length / 24);
 
         this.NianIndex = nianIndex;
         this.Year = this.NianIndex + SolarTables.STARTING_NIAN;
@@ -51,7 +51,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
         jieqiIndex++;
         var nextJieDayNumber = DateOnly.FromDateTime(nextJie).DayNumber;
 
-        var ganzhi = new Ganzhi((this.Ganzhi.Tiangan.Index % 5) * 12 - 11);
+        var ganzhi = new Ganzhi((this.Ganzhi.Tiangan.Index % 5) * 12 - 9);
 
         for (int i = 0; i < 12; i++)
         {
@@ -99,7 +99,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
     public static SolarNian FromGregorian(int year)
     {
         var nianIndex = year - SolarTables.STARTING_NIAN;
-        if (nianIndex < 0 || nianIndex * 24 >= SolarTables.JieQiTickTable.Length)
+        if (nianIndex < 0 || nianIndex >= SolarTables.JieQiTickTable.Length / 24)
             throw new NotSupportedException($"The year ({year}) is not in the supported range.");
         return new SolarNian(nianIndex);
     }

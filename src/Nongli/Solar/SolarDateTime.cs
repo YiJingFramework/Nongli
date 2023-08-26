@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using YiJingFramework.Nongli.Extensions;
 using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Solar;
@@ -17,6 +18,10 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
         this.riIndex = riIndex;
         this.Ri = yue.GanzhiOfFirstRi.Next(riIndex);
         this.Shi = new((this.Ri.Tiangan.Index % 5) * 12 - 11 + shi.Index - 1);
+
+        var jielingDayNumber = DateOnly.FromDateTime(yue.Jieling).DayNumber;
+        var zhongqiDayNumber = DateOnly.FromDateTime(yue.Zhongqi).DayNumber;
+        this.IsBeforeYueZhongqi = jielingDayNumber + riIndex < zhongqiDayNumber;
     }
 
     private readonly SolarNian solarNian;
@@ -48,6 +53,13 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
     /// The Yue.
     /// </summary>
     public Ganzhi Yue => this.SolarYue.Ganzhi;
+    /// <summary>
+    /// 指示当日是否还没有到月的中气。
+    /// 此属性只按日期判断，不考虑时间。
+    /// Indicate whether the date is before the Yue's Zhongqi or not.
+    /// The property is determined only by the date, without considering the exact time.
+    /// </summary>
+    public bool IsBeforeYueZhongqi { get; }
 
     private readonly int riIndex;
     /// <summary>
@@ -62,13 +74,14 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
     public Ganzhi Shi { get; }
     #endregion
 
-    /*
     #region converting
     /// <summary>
     /// 从公历日期和时间创建表示相同时间的 <seealso cref="SolarDateTime"/> 的实例。
+    /// 按交节当天换月，不考虑具体时间。
     /// 23 点后会被归为次日子时。
     /// Create an instance of <seealso cref="SolarDateTime"/> from a Gregorian date time which represent the same time.
-    /// The time after 23 o'clock will be considered as the next day's Zishi.
+    /// The Yue goes with the date of Jieling, without considering its exact time.
+    /// And The time after 23 o'clock will be considered as the next day's Zishi.
     /// </summary>
     /// <param name="dateTime">
     /// 公历日期和时间。
@@ -92,23 +105,27 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
 
         var originalDateTime = dateTime;
         if (dateTime.Hour is 23)
-            dateTime = dateTime.Add(new TimeSpan(1, 0, 0));
+            dateTime = dateTime.AddHours(1);
 
-        var dayNumber = DateOnly.FromDateTime(dateTime).DayNumber;
-        var nianIndex = LunarTables.NianStartDayNumberTable.SortedFindFloor(dayNumber);
-        if (nianIndex is -1)
+        var nextDay = dateTime.AddDays(1);
+        var jieqiIndex = SolarTables.JieQiTickTable.SortedFindFloor(nextDay.Ticks);
+        if (jieqiIndex is -1)
             throw NotSupportedDateTime(originalDateTime);
 
-        var restDayCount = dayNumber - LunarTables.NianStartDayNumberTable[nianIndex];
-        var nian = new LunarNian(nianIndex);
-        foreach (var yue in nian.YueList)
-        {
-            var newRest = restDayCount - yue.RiCount;
-            if (newRest < 0)
-                return new(yue, restDayCount + 1, new((dateTime.Hour + 3) / 2));
-            restDayCount = newRest;
-        }
-        throw NotSupportedDateTime(originalDateTime);
+        var nextDayJieqi = new DateTime(SolarTables.JieQiTickTable[jieqiIndex]);
+        if (DateOnly.FromDateTime(nextDayJieqi) == DateOnly.FromDateTime(nextDay))
+            jieqiIndex--;
+        if (jieqiIndex is -1 || jieqiIndex == SolarTables.JieQiTickTable.Length - 1)
+            throw NotSupportedDateTime(originalDateTime);
+
+        var nian = new SolarNian(jieqiIndex / 24);
+        var yue = nian.YueList[(jieqiIndex % 24) / 2];
+        var jie = yue.Jieling;
+        var jieDayNumber = DateOnly.FromDateTime(jie).DayNumber;
+        var daydifference = DateOnly.FromDateTime(dateTime).DayNumber - jieDayNumber;
+        if (daydifference >= yue.RiCount)
+            throw NotSupportedDateTime(originalDateTime);
+        return new(yue, daydifference, new((dateTime.Hour + 3) / 2));
     }
 
     /// <summary>
@@ -123,31 +140,20 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
     /// </returns>
     public DateTime ToGregorian()
     {
-        var nianIndex = this.solarNian.NianIndex;
-        var dayNumber = LunarTables.NianStartDayNumberTable[nianIndex];
-        foreach (var yue in new LunarNian(nianIndex).YueList)
-        {
-            if (yue.YueIndexInNian == this.LunarYue.YueIndexInNian)
-            {
-                dayNumber += this.Ri - 1;
-                break;
-            }
-            dayNumber += yue.RiCount;
-        }
-        var dateOnly = DateOnly.FromDayNumber(dayNumber);
-        return dateOnly.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
+        var ri = DateOnly.FromDateTime(this.SolarYue.Jieling);
+        ri = ri.AddDays(this.riIndex);
+        return ri.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
     }
 
     /// <inheritdoc />
     public override string ToString()
     {
         return $"N:{this.solarNian} " +
-            $"Y:{(this.IsRunyue ? 'L' : 'C')}{this.Yue:00} " +
-            $"R:{this.Ri:00} " +
+            $"Y:{this.Yue} " +
+            $"R:{this.Ri} " +
             $"S:{this.Shi}";
     }
     #endregion
-    */
 
     #region comparing
     /// <inheritdoc />
