@@ -19,8 +19,8 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
     /// </summary>
     public required SolarNian Nian
     {
-        get => new SolarNian(nianIndex);
-        init => nianIndex = value.NianIndex;
+        get => new SolarNian(this.nianIndex);
+        init => this.nianIndex = value.NianIndex;
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
         var difference = ri.Index - this.GanzhiOfFirstRi.Index;
         if (difference < 0)
             difference += 60;
-        if (difference >= RiCount)
+        if (difference >= this.RiCount)
             throw new ArgumentOutOfRangeException(nameof(ri));
         return new SolarDateTime(this, difference, shi);
     }

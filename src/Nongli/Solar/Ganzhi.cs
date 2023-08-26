@@ -7,7 +7,7 @@ namespace YiJingFramework.PrimitiveTypes;
 /// Ganzhi.
 /// </summary>
 public readonly struct Ganzhi :
-    IComparable<Ganzhi>, IEquatable<Ganzhi>, 
+    IComparable<Ganzhi>, IEquatable<Ganzhi>,
     IEqualityOperators<Ganzhi, Ganzhi, bool>,
     IAdditionOperators<Ganzhi, int, Ganzhi>,
     ISubtractionOperators<Ganzhi, int, Ganzhi>
@@ -24,13 +24,13 @@ public readonly struct Ganzhi :
     /// 天干部分。
     /// The Tiangan part.
     /// </summary>
-    public Tiangan Tiangan => new(Index);
+    public Tiangan Tiangan => new(this.Index);
 
     /// <summary>
     /// 地支部分。
     /// The Dizhi part.
     /// </summary>
-    public Dizhi Dizhi => new(Index);
+    public Dizhi Dizhi => new(this.Index);
 
     /// <summary>
     /// 析构此实体到天干和地支。
@@ -124,7 +124,7 @@ public readonly struct Ganzhi :
     /// <inheritdoc/>
     public override string ToString()
     {
-        return $"{Tiangan}{Dizhi.ToString().ToLowerInvariant()}";
+        return $"{this.Tiangan}{this.Dizhi.ToString().ToLowerInvariant()}";
     }
 
     /// <inheritdoc/>

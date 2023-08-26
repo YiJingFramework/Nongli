@@ -1,5 +1,4 @@
 ﻿using Lunar;
-using System.Diagnostics;
 
 namespace ConversionTableGenerator.PropertyWriters.Solar;
 internal sealed class JieQiTickTable : IPropertyWriter

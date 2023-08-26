@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using YiJingFramework.Nongli.Extensions;
 using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Solar;

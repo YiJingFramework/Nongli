@@ -19,8 +19,8 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     /// </summary>
     public required LunarNian Nian
     {
-        get => new LunarNian(nianIndex);
-        init => nianIndex = value.NianIndex;
+        get => new LunarNian(this.nianIndex);
+        init => this.nianIndex = value.NianIndex;
     }
 
     /// <summary>

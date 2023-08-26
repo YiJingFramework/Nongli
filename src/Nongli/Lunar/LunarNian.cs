@@ -14,7 +14,7 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     internal LunarNian(int checkedNianIndex)
     {
         Debug.Assert(checkedNianIndex >= 0 && checkedNianIndex < LunarTables.NianStartDayNumberTable.Length);
-        
+
         this.NianIndex = checkedNianIndex;
         this.Year = this.NianIndex + LunarTables.STARTING_NIAN;
         this.Ganzhi = new(LunarTables.STARTING_NIAN_GANZHI + this.NianIndex);
@@ -52,7 +52,7 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
         if (runyue is 0)
         {
             var mask = 0b1_0000_0000_0000;
-            for (int i = 0; i < yueCount; )
+            for (int i = 0; i < yueCount;)
             {
                 var yue = i + 1;
                 builder.Add(new LunarYue()
