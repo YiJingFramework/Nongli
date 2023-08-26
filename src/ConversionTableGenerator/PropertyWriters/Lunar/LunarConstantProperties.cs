@@ -1,10 +1,10 @@
 ﻿using Lunar;
 
 namespace ConversionTableGenerator.PropertyWriters.Lunar;
-internal sealed class ConstantProperties : IPropertyWriter
+internal sealed class LunarConstantProperties : IPropertyWriter
 {
     private readonly int startingYear;
-    public ConstantProperties(int startingYear)
+    public LunarConstantProperties(int startingYear)
     {
         this.startingYear = startingYear;
     }
@@ -13,12 +13,14 @@ internal sealed class ConstantProperties : IPropertyWriter
     {
         var year = LunarYear.FromYear(this.startingYear);
         writer.WriteLine($"internal const int STARTING_NIAN = {this.startingYear};");
-        writer.WriteLine($"internal const byte STARTING_NIAN_GAN_INDEX = {year.GanIndex + 1};");
-        writer.WriteLine($"internal const byte STARTING_NIAN_ZHI_INDEX = {year.ZhiIndex + 1};");
+
+        var ganzhi = 6 * (year.GanIndex + 1) - 5 * (year.ZhiIndex + 1);
+        ganzhi = (ganzhi + 60) % 60;
+        writer.WriteLine($"internal const byte STARTING_NIAN_GANZHI = {ganzhi};");
     }
 
     public void WriteInitialization(StreamWriterWithIndent writer)
     {
-        writer.WriteLine($"// {nameof(ConstantProperties)}");
+        writer.WriteLine($"// {nameof(LunarConstantProperties)}");
     }
 }

@@ -14,10 +14,13 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     internal LunarNian(int checkedNianIndex)
     {
         Debug.Assert(checkedNianIndex >= 0 && checkedNianIndex < LunarTables.NianStartDayNumberTable.Length);
+        
         this.NianIndex = checkedNianIndex;
+        this.Year = this.NianIndex + LunarTables.STARTING_NIAN;
+        this.Ganzhi = new(LunarTables.STARTING_NIAN_GANZHI + this.NianIndex);
+
         this.yueListLazy = new(this.LoadYueList, true);
     }
-    internal LunarNian(LunarNian nian) : this(nian.NianIndex) { }
 
     internal int NianIndex { get; }
     /// <summary>
@@ -26,17 +29,12 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     /// The Gregorian year in which the first day of this Nian is.
     /// Not all the days in this Nian are in this Gregorian year.
     /// </summary>
-    public int Year => this.NianIndex + LunarTables.STARTING_NIAN;
+    public int Year { get; }
     /// <summary>
-    /// 此年年干。
-    /// This Nian's Tiangan.
+    /// 此年干支。
+    /// This Nian's Ganzhi.
     /// </summary>
-    public Tiangan Niangan => new(LunarTables.STARTING_NIAN_GAN_INDEX + this.NianIndex);
-    /// <summary>
-    /// 此年年支。
-    /// This Nian's Dizhi.
-    /// </summary>
-    public Dizhi Nianzhi => new(LunarTables.STARTING_NIAN_ZHI_INDEX + this.NianIndex);
+    public Ganzhi Ganzhi { get; }
 
     private readonly Lazy<IReadOnlyList<LunarYue>> yueListLazy;
     /// <summary>
@@ -47,9 +45,76 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     private IReadOnlyList<LunarYue> LoadYueList()
     {
         var yueCount = LunarTables.RunyueIndexTable[this.NianIndex] is 0 ? 12 : 13;
-        return Enumerable.Range(0, yueCount)
-             .Select(x => new LunarYue(this.NianIndex, x))
-             .ToImmutableList();
+        var builder = ImmutableArray.CreateBuilder<LunarYue>(yueCount);
+
+        var riCount = LunarTables.RiCountOfYueTable[this.NianIndex];
+        var runyue = LunarTables.RunyueIndexTable[this.NianIndex];
+        if (runyue is 0)
+        {
+            var mask = 0b1_0000_0000_0000;
+            for (int i = 0; i < yueCount; )
+            {
+                var yue = i + 1;
+                builder.Add(new LunarYue()
+                {
+                    Nian = this,
+                    YueIndexInNian = i,
+                    Number = yue,
+                    IsRunyue = false,
+                    IndexOfFirstRi = 1,
+                    RiCount = (riCount & mask) > 0 ? 30 : 29
+                });
+                i = yue;
+                mask >>= 1;
+            }
+        }
+        else
+        {
+            int i = 0;
+            var mask = 0b1_0000_0000_0000;
+            for (; i < runyue;)
+            {
+                var yue = i + 1;
+                builder.Add(new LunarYue()
+                {
+                    Nian = this,
+                    YueIndexInNian = i,
+                    Number = yue,
+                    IsRunyue = false,
+                    IndexOfFirstRi = 1,
+                    RiCount = (riCount & mask) > 0 ? 30 : 29
+                });
+                i = yue;
+                mask >>= 1;
+            }
+            {
+                builder.Add(new LunarYue()
+                {
+                    Nian = this,
+                    YueIndexInNian = i,
+                    Number = i,
+                    IsRunyue = true,
+                    IndexOfFirstRi = 1,
+                    RiCount = (riCount & mask) > 0 ? 30 : 29
+                });
+                i++;
+                mask >>= 1;
+            }
+            for (; i < yueCount; i++)
+            {
+                builder.Add(new LunarYue()
+                {
+                    Nian = this,
+                    YueIndexInNian = i,
+                    Number = i,
+                    IsRunyue = false,
+                    IndexOfFirstRi = 1,
+                    RiCount = (riCount & mask) > 0 ? 30 : 29
+                });
+                mask >>= 1;
+            }
+        }
+        return builder.MoveToImmutable();
     }
     #endregion
 
@@ -80,7 +145,7 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     /// <inheritdoc />
     public override string ToString()
     {
-        return $"{this.Niangan}-{this.Nianzhi} ({this.Year})";
+        return $"{this.Ganzhi}{this.Year}";
     }
     #endregion
 

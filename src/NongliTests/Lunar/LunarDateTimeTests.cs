@@ -11,7 +11,7 @@ public class LunarDateTimeTests
     [TestMethod()]
     public void CorrectnessTest()
     {
-        static void AssertSolar(Solar expected, DateTime actual)
+        static void AssertSolar(L.Solar expected, DateTime actual)
         {
             Assert.AreEqual(expected.Year, actual.Year);
             Assert.AreEqual(expected.Month, actual.Month);
@@ -24,16 +24,16 @@ public class LunarDateTimeTests
         static void AssertLunar(L.Lunar expected, LunarDateTime actual)
         {
             Assert.AreEqual(expected.Year, actual.Year);
-            Assert.AreEqual(expected.YearGan, actual.Niangan.ToString("C"));
-            Assert.AreEqual(expected.YearZhi, actual.Nianzhi.ToString("C"));
+            Assert.AreEqual(expected.YearGan, actual.Nian.Tiangan.ToString("C"));
+            Assert.AreEqual(expected.YearZhi, actual.Nian.Dizhi.ToString("C"));
             Assert.AreEqual(expected.Year, actual.LunarNian.Year);
-            Assert.AreEqual(expected.YearGan, actual.LunarNian.Niangan.ToString("C"));
-            Assert.AreEqual(expected.YearZhi, actual.LunarNian.Nianzhi.ToString("C"));
+            Assert.AreEqual(expected.YearGan, actual.LunarNian.Ganzhi.Tiangan.ToString("C"));
+            Assert.AreEqual(expected.YearZhi, actual.LunarNian.Ganzhi.Dizhi.ToString("C"));
 
             Assert.AreEqual(expected.Month,
                 actual.IsRunyue ? -actual.Yue : actual.Yue);
             Assert.AreEqual(expected.Month,
-                actual.LunarYue.IsRunyue ? -actual.LunarYue.Yue : actual.LunarYue.Yue);
+                actual.LunarYue.IsRunyue ? -actual.LunarYue.Number : actual.LunarYue.Number);
 
             Assert.AreEqual(expected.Day, actual.Ri);
             Assert.AreEqual(expected.TimeZhi, actual.Shi.ToString("C"));

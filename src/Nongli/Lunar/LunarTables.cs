@@ -5,8 +5,7 @@ namespace YiJingFramework.Nongli.Lunar;
 internal static class LunarTables
 {
     internal const int STARTING_NIAN = 1901;
-    internal const byte STARTING_NIAN_GAN_INDEX = 8;
-    internal const byte STARTING_NIAN_ZHI_INDEX = 2;
+    internal const byte STARTING_NIAN_GANZHI = 38;
 
     internal static ImmutableArray<int> NianStartDayNumberTable { get; }
 
@@ -18,7 +17,7 @@ internal static class LunarTables
     static LunarTables()
     {
         {
-            // ConstantProperties
+            // LunarConstantProperties
         }
 
         {
@@ -639,3 +638,4 @@ internal static class LunarTables
 
     }
 }
+
