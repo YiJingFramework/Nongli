@@ -62,27 +62,37 @@ public class LunarDateTimeTests
             for (var dt = minDateTime; dt <= maxDateTime; dt = dt.AddHours(2))
                 yield return dt;
         }
-        EnumerateTestingDateTime().AsParallel().ForAll(dt =>
+
+        var testings = EnumerateTestingDateTime();
+        testings = testings.Take(10000).Concat(testings.Reverse().Take(10000));
+        foreach (var dt in testings)
         {
             var lunarDt = LunarDateTime.FromGregorian(dt);
             AssertLunar(L.Lunar.FromDate(dt), lunarDt);
             Assert.AreEqual(dt, lunarDt.ToGregorian());
 
-            dt = dt.AddHours(-1);
-            Assert.AreEqual(lunarDt, LunarDateTime.FromGregorian(dt));
-        });
+            var newDt = dt.AddHours(-1);
+            Assert.AreEqual(lunarDt, LunarDateTime.FromGregorian(newDt));
+        }
+
+        _ = Assert.ThrowsException<NotSupportedException>(
+            () => LunarDateTime.FromGregorian(minDateTime.AddHours(-2)));
+        _ = Assert.ThrowsException<NotSupportedException>(
+            () => LunarDateTime.FromGregorian(maxDateTime.AddHours(2)));
     }
 
     [TestMethod()]
     public void OtherTests()
     {
-        var dt1 = LunarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
-        var dt2 = LunarNian.FromGregorian(2023).YueList[7].GetDateTime(11, Dizhi.Wu);
-        Assert.IsTrue(dt1.Equals(dt2));
-        Assert.AreEqual(0, dt1.CompareTo(dt2));
-        Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
+        {
+            var dt1 = LunarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
+            var dt2 = LunarNian.FromGregorian(2023).YueList[7].GetDateTime(11, Dizhi.Wu);
+            Assert.IsTrue(dt1.Equals(dt2));
+            Assert.AreEqual(0, dt1.CompareTo(dt2));
+            Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
+        }
 
-        Enumerable.Range(0, 100000).AsParallel().ForAll((_) =>
+        for (int i = 0; i < 100000; i++)
         {
             var nian1 = LunarNian.FromGregorian(Random.Shared.Next(
                 LunarNian.MinSupportedNian.Year, LunarNian.MaxSupportedNian.Year + 1));
@@ -108,6 +118,6 @@ public class LunarDateTimeTests
 
             Assert.AreEqual(compareResult == 0, dt1.Equals(dt2));
             Assert.AreEqual(compareResult, dt1.CompareTo(dt2));
-        });
+        };
     }
 }

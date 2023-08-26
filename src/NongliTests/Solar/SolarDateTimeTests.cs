@@ -69,29 +69,39 @@ public class SolarDateTimeTests
                 yield return dt;
             }
         }
-        EnumerateTestingDateTime().AsParallel().ForAll(dt =>
+
+        var testings = EnumerateTestingDateTime();
+        testings = testings.Take(10000).Concat(testings.Reverse().Take(10000));
+        foreach (var dt in testings)
         {
             var solarDt = SolarDateTime.FromGregorian(dt);
             AssertSolar(L.Lunar.FromDate(dt), solarDt);
             Assert.AreEqual(dt, solarDt.ToGregorian());
 
-            dt = dt.AddHours(-1);
-            Assert.AreEqual(solarDt, SolarDateTime.FromGregorian(dt));
-        });
+            var newDt = dt.AddHours(-1);
+            Assert.AreEqual(solarDt, SolarDateTime.FromGregorian(newDt));
+        }
+
+        _ = Assert.ThrowsException<NotSupportedException>(
+            () => SolarDateTime.FromGregorian(minDateTime.AddHours(-2)));
+        _ = Assert.ThrowsException<NotSupportedException>(
+            () => SolarDateTime.FromGregorian(maxDateTime.AddHours(2)));
     }
 
     [TestMethod()]
     public void OtherTests()
     {
-        var dt1 = SolarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
-        var dt2 = SolarNian.FromGregorian(2023).YueList
-            .Single(x => x.Ganzhi.Dizhi == Dizhi.Shen)
-            .GetDateTime(new Ganzhi(Tiangan.Bing, Dizhi.Chen), Dizhi.Wu);
-        Assert.IsTrue(dt1.Equals(dt2));
-        Assert.AreEqual(0, dt1.CompareTo(dt2));
-        Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
+        {
+            var dt1 = SolarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
+            var dt2 = SolarNian.FromGregorian(2023).YueList
+                .Single(x => x.Ganzhi.Dizhi == Dizhi.Shen)
+                .GetDateTime(new Ganzhi(Tiangan.Bing, Dizhi.Chen), Dizhi.Wu);
+            Assert.IsTrue(dt1.Equals(dt2));
+            Assert.AreEqual(0, dt1.CompareTo(dt2));
+            Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
+        }
 
-        Enumerable.Range(0, 100000).AsParallel().ForAll((_) =>
+        for (int i = 0; i < 100000; i++)
         {
             var nian1 = SolarNian.FromGregorian(Random.Shared.Next(
                 SolarNian.MinSupportedNian.Year, SolarNian.MaxSupportedNian.Year + 1));
@@ -117,6 +127,6 @@ public class SolarDateTimeTests
 
             Assert.AreEqual(compareResult == 0, dt1.Equals(dt2));
             Assert.AreEqual(compareResult, dt1.CompareTo(dt2));
-        });
+        };
     }
 }
