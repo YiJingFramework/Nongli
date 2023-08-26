@@ -67,12 +67,47 @@ public class LunarDateTimeTests
             var lunarDt = LunarDateTime.FromGregorian(dt);
             AssertLunar(L.Lunar.FromDate(dt), lunarDt);
             Assert.AreEqual(dt, lunarDt.ToGregorian());
+
+            dt = dt.AddHours(-1);
+            Assert.AreEqual(lunarDt, LunarDateTime.FromGregorian(dt));
         });
     }
 
     [TestMethod()]
     public void OtherTests()
     {
-        Assert.Fail();
+        var dt1 = LunarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
+        var dt2 = LunarNian.FromGregorian(2023).YueList[7].GetDateTime(11, Dizhi.Wu);
+        Assert.IsTrue(dt1.Equals(dt2));
+        Assert.AreEqual(0, dt1.CompareTo(dt2));
+        Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
+
+        Enumerable.Range(0, 100000).AsParallel().ForAll((_) =>
+        {
+            var nian1 = LunarNian.FromGregorian(Random.Shared.Next(
+                LunarNian.MinSupportedNian.Year, LunarNian.MaxSupportedNian.Year + 1));
+            var nian2 = LunarNian.FromGregorian(Random.Shared.Next(
+                LunarNian.MinSupportedNian.Year, LunarNian.MaxSupportedNian.Year + 1));
+
+            var yue1 = nian1.YueList[Random.Shared.Next(0, nian1.YueList.Count)];
+            var yue2 = nian2.YueList[Random.Shared.Next(0, nian2.YueList.Count)];
+            var compareResult = yue1.CompareTo(yue2);
+
+            var ri1 = Random.Shared.Next(1, yue1.RiCount + 1);
+            var ri2 = Random.Shared.Next(1, yue2.RiCount + 1);
+            if (compareResult == 0)
+                compareResult = ri1.CompareTo(ri2);
+
+            var shi1 = new Dizhi(Random.Shared.Next(1, 13));
+            var shi2 = new Dizhi(Random.Shared.Next(1, 13));
+            if (compareResult == 0)
+                compareResult = shi1.CompareTo(shi2);
+
+            var dt1 = yue1.GetDateTime(ri1, shi1);
+            var dt2 = yue2.GetDateTime(ri2, shi2);
+
+            Assert.AreEqual(compareResult == 0, dt1.Equals(dt2));
+            Assert.AreEqual(compareResult, dt1.CompareTo(dt2));
+        });
     }
 }

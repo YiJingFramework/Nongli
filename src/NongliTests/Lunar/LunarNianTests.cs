@@ -37,6 +37,7 @@ public class LunarNianTests
 
                     Assert.AreEqual(monthL.Leap, yue.IsRunyue);
                     Assert.AreEqual(Math.Abs(monthL.Month), yue.Yue);
+                    Assert.AreEqual(1, yue.IndexOfFirstRi);
                     Assert.AreEqual(monthL.DayCount, yue.RiCount);
                 }
             }

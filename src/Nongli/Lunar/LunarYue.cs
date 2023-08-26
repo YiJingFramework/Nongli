@@ -62,6 +62,14 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     }
 
     /// <summary>
+    /// 此月中的第一日的序数。
+    /// 此属性的值始终为 <c>1</c> 。
+    /// Index of the first Ri in this Yue.
+    /// This property will always return <c>1</c>.
+    /// </summary>
+    public int IndexOfFirstRi => 1;
+
+    /// <summary>
     /// 此月中日的数量。
     /// Count of the Ris in this Yue.
     /// </summary>
@@ -94,8 +102,8 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     /// The result.
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// <paramref name="ri"/> 不在 <c>1</c> 到 <seealso cref="RiCount"/> 的范围内。
-    /// <paramref name="ri"/> is not in the range (from <c>1</c> to <seealso cref="RiCount"/>).
+    /// <paramref name="ri"/> 不在 <seealso cref="IndexOfFirstRi"/> 到 <seealso cref="RiCount"/> 的范围内。
+    /// <paramref name="ri"/> is not in the range (from <seealso cref="IndexOfFirstRi"/> to <seealso cref="RiCount"/>).
     /// </exception>
     public LunarDateTime GetDateTime(int ri, Dizhi shi)
     {

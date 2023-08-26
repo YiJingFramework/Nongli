@@ -174,7 +174,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
     {
         if (!this.LunarYue.Equals(other?.LunarYue))
             return false;
-        if (this.Ri.Equals(other.Ri))
+        if (!this.Ri.Equals(other.Ri))
             return false;
         return this.Shi.Equals(other.Shi);
     }
