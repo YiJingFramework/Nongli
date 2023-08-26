@@ -142,7 +142,7 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
     {
         var ri = DateOnly.FromDateTime(this.SolarYue.Jieling);
         ri = ri.AddDays(this.riIndex);
-        return ri.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
+        return ri.ToDateTime(new TimeOnly((this.Shi.Dizhi.Index - 1) * 2, 0, 0));
     }
 
     /// <inheritdoc />

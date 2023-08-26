@@ -1,14 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using YiJingFramework.Nongli.Solar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using L = Lunar;
-using YiJingFramework.Nongli.Lunar;
 using YiJingFramework.PrimitiveTypes;
-using Lunar;
+using L = Lunar;
 
 namespace YiJingFramework.Nongli.Solar.Tests;
 
@@ -49,7 +41,7 @@ public class SolarNianTests
 
                 var yearL = L.LunarYear.FromYear(year);
                 Assert.AreEqual(yearL.Year, nian.Year);
-                
+
                 var lunarL = L.Solar.FromJulianDay(yearL.Months[0].FirstJulianDay).Lunar;
                 for (; lunarL.CurrentJieQi?.Name != "立春";)
                 {
