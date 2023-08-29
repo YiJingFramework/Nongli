@@ -3,14 +3,21 @@ using ConversionTableGenerator.PropertyWriters.Lunar;
 using ConversionTableGenerator.PropertyWriters.Solar;
 using System.Diagnostics;
 
+#if !DEBUG
+Console.WriteLine("不在 Debug 模式下启动可能导致检查不生效。");
+#endif
+
+var minYear = 1901;
+var maxYear = 2200;
+
 {
     var file = new FileInfo("./outputs/LunarTables.txt");
     var properties = new IPropertyWriter[]
     {
-        new LunarConstantProperties(1901),
-        new NianStartDayNumberTable(1901, 2100),
-        new RunyueIndexTable(1901, 2100),
-        new RiCountOfYueTable(1901, 2100),
+        new LunarConstantProperties(minYear),
+        new NianStartDayNumberTable(minYear, maxYear),
+        new RunyueIndexTable(minYear, maxYear),
+        new RiCountOfYueTable(minYear, maxYear),
     };
 
     using var writer = new StreamWriterWithIndent(file);
@@ -52,8 +59,8 @@ using System.Diagnostics;
     var file = new FileInfo("./outputs/SolarTables.txt");
     var properties = new IPropertyWriter[]
     {
-        new SolarConstantProperties(1901),
-        new JieQiTickTable(1901, 2100)
+        new SolarConstantProperties(minYear),
+        new JieQiTickTable(minYear, maxYear)
     };
 
     using var writer = new StreamWriterWithIndent(file);

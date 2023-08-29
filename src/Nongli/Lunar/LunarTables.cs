@@ -22,7 +22,7 @@ internal static class LunarTables
 
         {
             // NianStartDayNumberTable
-            var builder = ImmutableArray.CreateBuilder<int>(199);
+            var builder = ImmutableArray.CreateBuilder<int>(299);
             builder.Add(694009); // 1901 2-19
             builder.Add(694363); // 1902 2-8
             builder.Add(694718); // 1903 1-29
@@ -222,12 +222,112 @@ internal static class LunarTables
             builder.Add(765591); // 2097 2-12
             builder.Add(765945); // 2098 2-1
             builder.Add(766299); // 2099 1-21
+            builder.Add(766683); // 2100 2-9
+            builder.Add(767037); // 2101 1-29
+            builder.Add(767421); // 2102 2-17
+            builder.Add(767776); // 2103 2-7
+            builder.Add(768131); // 2104 1-28
+            builder.Add(768515); // 2105 2-15
+            builder.Add(768869); // 2106 2-4
+            builder.Add(769223); // 2107 1-24
+            builder.Add(769607); // 2108 2-12
+            builder.Add(769961); // 2109 1-31
+            builder.Add(770345); // 2110 2-19
+            builder.Add(770699); // 2111 2-8
+            builder.Add(771054); // 2112 1-29
+            builder.Add(771438); // 2113 2-16
+            builder.Add(771793); // 2114 2-6
+            builder.Add(772147); // 2115 1-26
+            builder.Add(772531); // 2116 2-14
+            builder.Add(772885); // 2117 2-2
+            builder.Add(773239); // 2118 1-22
+            builder.Add(773623); // 2119 2-10
+            builder.Add(773977); // 2120 1-30
+            builder.Add(774361); // 2121 2-17
+            builder.Add(774716); // 2122 2-7
+            builder.Add(775070); // 2123 1-27
+            builder.Add(775454); // 2124 2-15
+            builder.Add(775808); // 2125 2-3
+            builder.Add(776162); // 2126 1-23
+            builder.Add(776546); // 2127 2-11
+            builder.Add(776901); // 2128 2-1
+            builder.Add(777285); // 2129 2-19
+            builder.Add(777639); // 2130 2-8
+            builder.Add(777994); // 2131 1-29
+            builder.Add(778378); // 2132 2-17
+            builder.Add(778732); // 2133 2-5
+            builder.Add(779086); // 2134 1-25
+            builder.Add(779470); // 2135 2-13
+            builder.Add(779824); // 2136 2-2
+            builder.Add(780179); // 2137 1-22
+            builder.Add(780563); // 2138 2-10
+            builder.Add(780917); // 2139 1-30
+            builder.Add(781301); // 2140 2-18
+            builder.Add(781656); // 2141 2-7
+            builder.Add(782010); // 2142 1-27
+            builder.Add(782394); // 2143 2-15
+            builder.Add(782748); // 2144 2-4
+            builder.Add(783102); // 2145 1-23
+            builder.Add(783486); // 2146 2-11
+            builder.Add(783841); // 2147 2-1
+            builder.Add(784225); // 2148 2-20
+            builder.Add(784579); // 2149 2-8
+            builder.Add(784934); // 2150 1-29
+            builder.Add(785317); // 2151 2-16
+            builder.Add(785671); // 2152 2-5
+            builder.Add(786026); // 2153 1-25
+            builder.Add(786409); // 2154 2-12
+            builder.Add(786764); // 2155 2-2
+            builder.Add(787119); // 2156 1-23
+            builder.Add(787503); // 2157 2-10
+            builder.Add(787857); // 2158 1-30
+            builder.Add(788241); // 2159 2-18
+            builder.Add(788595); // 2160 2-7
+            builder.Add(788949); // 2161 1-26
+            builder.Add(789333); // 2162 2-14
+            builder.Add(789687); // 2163 2-3
+            builder.Add(790042); // 2164 1-24
+            builder.Add(790426); // 2165 2-11
+            builder.Add(790781); // 2166 2-1
+            builder.Add(791165); // 2167 2-20
+            builder.Add(791519); // 2168 2-9
+            builder.Add(791873); // 2169 1-28
+            builder.Add(792257); // 2170 2-16
+            builder.Add(792611); // 2171 2-5
+            builder.Add(792965); // 2172 1-25
+            builder.Add(793349); // 2173 2-12
+            builder.Add(793704); // 2174 2-2
+            builder.Add(794059); // 2175 1-23
+            builder.Add(794443); // 2176 2-11
+            builder.Add(794797); // 2177 1-30
+            builder.Add(795181); // 2178 2-18
+            builder.Add(795535); // 2179 2-7
+            builder.Add(795889); // 2180 1-27
+            builder.Add(796273); // 2181 2-14
+            builder.Add(796627); // 2182 2-3
+            builder.Add(796982); // 2183 1-24
+            builder.Add(797366); // 2184 2-12
+            builder.Add(797720); // 2185 1-31
+            builder.Add(798075); // 2186 1-21
+            builder.Add(798458); // 2187 2-8
+            builder.Add(798812); // 2188 1-28
+            builder.Add(799196); // 2189 2-15
+            builder.Add(799551); // 2190 2-5
+            builder.Add(799905); // 2191 1-25
+            builder.Add(800289); // 2192 2-13
+            builder.Add(800644); // 2193 2-2
+            builder.Add(800998); // 2194 1-22
+            builder.Add(801382); // 2195 2-10
+            builder.Add(801736); // 2196 1-30
+            builder.Add(802120); // 2197 2-17
+            builder.Add(802474); // 2198 2-6
+            builder.Add(802829); // 2199 1-27
             NianStartDayNumberTable = builder.MoveToImmutable();
         }
 
         {
             // RunyueIndexTable
-            var builder = ImmutableArray.CreateBuilder<byte>(199);
+            var builder = ImmutableArray.CreateBuilder<byte>(299);
             builder.Add(0); // 1901
             builder.Add(0); // 1902
             builder.Add(5); // 1903
@@ -427,13 +527,113 @@ internal static class LunarTables
             builder.Add(0); // 2097
             builder.Add(0); // 2098
             builder.Add(2); // 2099
+            builder.Add(0); // 2100
+            builder.Add(7); // 2101
+            builder.Add(0); // 2102
+            builder.Add(0); // 2103
+            builder.Add(5); // 2104
+            builder.Add(0); // 2105
+            builder.Add(0); // 2106
+            builder.Add(4); // 2107
+            builder.Add(0); // 2108
+            builder.Add(9); // 2109
+            builder.Add(0); // 2110
+            builder.Add(0); // 2111
+            builder.Add(6); // 2112
+            builder.Add(0); // 2113
+            builder.Add(0); // 2114
+            builder.Add(4); // 2115
+            builder.Add(0); // 2116
+            builder.Add(0); // 2117
+            builder.Add(3); // 2118
+            builder.Add(0); // 2119
+            builder.Add(7); // 2120
+            builder.Add(0); // 2121
+            builder.Add(0); // 2122
+            builder.Add(5); // 2123
+            builder.Add(0); // 2124
+            builder.Add(0); // 2125
+            builder.Add(4); // 2126
+            builder.Add(0); // 2127
+            builder.Add(11); // 2128
+            builder.Add(0); // 2129
+            builder.Add(0); // 2130
+            builder.Add(6); // 2131
+            builder.Add(0); // 2132
+            builder.Add(0); // 2133
+            builder.Add(5); // 2134
+            builder.Add(0); // 2135
+            builder.Add(0); // 2136
+            builder.Add(2); // 2137
+            builder.Add(0); // 2138
+            builder.Add(7); // 2139
+            builder.Add(0); // 2140
+            builder.Add(0); // 2141
+            builder.Add(5); // 2142
+            builder.Add(0); // 2143
+            builder.Add(0); // 2144
+            builder.Add(4); // 2145
+            builder.Add(0); // 2146
+            builder.Add(11); // 2147
+            builder.Add(0); // 2148
+            builder.Add(0); // 2149
+            builder.Add(6); // 2150
+            builder.Add(0); // 2151
+            builder.Add(0); // 2152
+            builder.Add(5); // 2153
+            builder.Add(0); // 2154
+            builder.Add(0); // 2155
+            builder.Add(3); // 2156
+            builder.Add(0); // 2157
+            builder.Add(7); // 2158
+            builder.Add(0); // 2159
+            builder.Add(0); // 2160
+            builder.Add(6); // 2161
+            builder.Add(0); // 2162
+            builder.Add(0); // 2163
+            builder.Add(4); // 2164
+            builder.Add(0); // 2165
+            builder.Add(10); // 2166
+            builder.Add(0); // 2167
+            builder.Add(0); // 2168
+            builder.Add(6); // 2169
+            builder.Add(0); // 2170
+            builder.Add(0); // 2171
+            builder.Add(5); // 2172
+            builder.Add(0); // 2173
+            builder.Add(0); // 2174
+            builder.Add(3); // 2175
+            builder.Add(0); // 2176
+            builder.Add(7); // 2177
+            builder.Add(0); // 2178
+            builder.Add(0); // 2179
+            builder.Add(6); // 2180
+            builder.Add(0); // 2181
+            builder.Add(0); // 2182
+            builder.Add(4); // 2183
+            builder.Add(0); // 2184
+            builder.Add(0); // 2185
+            builder.Add(2); // 2186
+            builder.Add(0); // 2187
+            builder.Add(6); // 2188
+            builder.Add(0); // 2189
+            builder.Add(0); // 2190
+            builder.Add(5); // 2191
+            builder.Add(0); // 2192
+            builder.Add(0); // 2193
+            builder.Add(3); // 2194
+            builder.Add(0); // 2195
+            builder.Add(7); // 2196
+            builder.Add(0); // 2197
+            builder.Add(0); // 2198
+            builder.Add(6); // 2199
             RunyueIndexTable = builder.MoveToImmutable();
 
         }
 
         {
             // RiCountOfYueTable
-            var builder = ImmutableArray.CreateBuilder<short>(199);
+            var builder = ImmutableArray.CreateBuilder<short>(299);
             builder.Add(0b0100101011100); // 1901 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 C29 
             builder.Add(0b1010010101110); // 1902 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 
             builder.Add(0b0101001001101); // 1903 C29 C30 C29 C30 C29 L29 C30 C29 C29 C30 C30 C29 C30 
@@ -633,6 +833,106 @@ internal static class LunarTables
             builder.Add(0b1010001011010); // 2097 C30 C29 C30 C29 C29 C29 C30 C29 C30 C30 C29 C30 
             builder.Add(0b1101000101010); // 2098 C30 C30 C29 C30 C29 C29 C29 C30 C29 C30 C29 C30 
             builder.Add(0b1101100100101); // 2099 C30 C30 L29 C30 C30 C29 C29 C30 C29 C29 C30 C29 C30 
+            builder.Add(0b1101010100100); // 2100 C30 C30 C29 C30 C29 C30 C29 C30 C29 C29 C30 C29 
+            builder.Add(0b1101101010010); // 2101 C30 C30 C29 C30 C30 C29 C30 L29 C30 C29 C29 C30 C29 
+            builder.Add(0b1011010110100); // 2102 C30 C29 C30 C30 C29 C30 C29 C30 C30 C29 C30 C29 
+            builder.Add(0b0101010111010); // 2103 C29 C30 C29 C30 C29 C30 C29 C30 C30 C30 C29 C30 
+            builder.Add(0b0100101011011); // 2104 C29 C30 C29 C29 C30 L29 C30 C29 C30 C30 C29 C30 C30 
+            builder.Add(0b0100100110110); // 2105 C29 C30 C29 C29 C30 C29 C29 C30 C30 C29 C30 C30 
+            builder.Add(0b1010010010110); // 2106 C30 C29 C30 C29 C29 C30 C29 C29 C30 C29 C30 C30 
+            builder.Add(0b1101001001011); // 2107 C30 C30 C29 C30 L29 C29 C30 C29 C29 C30 C29 C30 C30 
+            builder.Add(0b1010101001010); // 2108 C30 C29 C30 C29 C30 C29 C30 C29 C29 C30 C29 C30 
+            builder.Add(0b1011010100101); // 2109 C30 C29 C30 C30 C29 C30 C29 C30 C29 L29 C30 C29 C30 
+            builder.Add(0b0110110100100); // 2110 C29 C30 C30 C29 C30 C30 C29 C30 C29 C29 C30 C29 
+            builder.Add(0b1010110101100); // 2111 C30 C29 C30 C29 C30 C30 C29 C30 C29 C30 C30 C29 
+            builder.Add(0b0101010110110); // 2112 C29 C30 C29 C30 C29 C30 L29 C30 C30 C29 C30 C30 C29 
+            builder.Add(0b1001001101110); // 2113 C30 C29 C29 C30 C29 C29 C30 C30 C29 C30 C30 C30 
+            builder.Add(0b0100100101110); // 2114 C29 C30 C29 C29 C30 C29 C29 C30 C29 C30 C30 C30 
+            builder.Add(0b0110010010111); // 2115 C29 C30 C30 C29 L29 C30 C29 C29 C30 C29 C30 C30 C30 
+            builder.Add(0b0101010010110); // 2116 C29 C30 C29 C30 C29 C30 C29 C29 C30 C29 C30 C30 
+            builder.Add(0b0110101001010); // 2117 C29 C30 C30 C29 C30 C29 C30 C29 C29 C30 C29 C30 
+            builder.Add(0b0110110100101); // 2118 C29 C30 C30 L29 C30 C30 C29 C30 C29 C29 C30 C29 C30 
+            builder.Add(0b0110101010100); // 2119 C29 C30 C30 C29 C30 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010101101010); // 2120 C30 C29 C30 C29 C30 C29 C30 L30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010101011010); // 2121 C30 C29 C30 C29 C30 C29 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b0101001011100); // 2122 C29 C30 C29 C30 C29 C29 C30 C29 C30 C30 C30 C29 
+            builder.Add(0b1100100101110); // 2123 C30 C30 C29 C29 C30 L29 C29 C30 C29 C30 C30 C30 C29 
+            builder.Add(0b1010100101100); // 2124 C30 C29 C30 C29 C30 C29 C29 C30 C29 C30 C30 C29 
+            builder.Add(0b1101010010100); // 2125 C30 C30 C29 C30 C29 C30 C29 C29 C30 C29 C30 C29 
+            builder.Add(0b1110101001010); // 2126 C30 C30 C30 C29 L30 C29 C30 C29 C29 C30 C29 C30 C29 
+            builder.Add(0b1101100101010); // 2127 C30 C30 C29 C30 C30 C29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101101010101); // 2128 C29 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 L29 C30 
+            builder.Add(0b0101011010100); // 2129 C29 C30 C29 C30 C29 C30 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010011011010); // 2130 C30 C29 C30 C29 C29 C30 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b0101001011101); // 2131 C29 C30 C29 C30 C29 C29 L30 C29 C30 C30 C30 C29 C30 
+            builder.Add(0b0101001011010); // 2132 C29 C30 C29 C30 C29 C29 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b1010100011010); // 2133 C30 C29 C30 C29 C30 C29 C29 C29 C30 C30 C29 C30 
+            builder.Add(0b1101010010101); // 2134 C30 C30 C29 C30 C29 L30 C29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b1011001010100); // 2135 C30 C29 C30 C30 C29 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1011010101010); // 2136 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101011010101); // 2137 C29 C30 L29 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101010110100); // 2138 C29 C30 C29 C30 C29 C30 C29 C30 C30 C29 C30 C29 
+            builder.Add(0b1010010111010); // 2139 C30 C29 C30 C29 C29 C30 C29 L30 C30 C30 C29 C30 C29 
+            builder.Add(0b1010010110110); // 2140 C30 C29 C30 C29 C29 C30 C29 C30 C30 C29 C30 C30 
+            builder.Add(0b0101001010110); // 2141 C29 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 
+            builder.Add(0b1010100010111); // 2142 C30 C29 C30 C29 C30 L29 C29 C29 C30 C29 C30 C30 C30 
+            builder.Add(0b0110100010110); // 2143 C29 C30 C30 C29 C30 C29 C29 C29 C30 C29 C30 C30 
+            builder.Add(0b0111001010010); // 2144 C29 C30 C30 C30 C29 C29 C30 C29 C30 C29 C29 C30 
+            builder.Add(0b1011010101010); // 2145 C30 C29 C30 C30 L29 C30 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b0110101101010); // 2146 C29 C30 C30 C29 C30 C29 C30 C30 C29 C30 C29 C30 
+            builder.Add(0b0010110110101); // 2147 C29 C29 C30 C29 C30 C30 C29 C30 C30 C29 C30 L29 C30 
+            builder.Add(0b0100101101100); // 2148 C29 C30 C29 C29 C30 C29 C30 C30 C29 C30 C30 C29 
+            builder.Add(0b1010010101110); // 2149 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 
+            builder.Add(0b0101000101110); // 2150 C29 C30 C29 C30 C29 C29 L29 C30 C29 C30 C30 C30 C29 
+            builder.Add(0b1101000101100); // 2151 C30 C30 C29 C30 C29 C29 C29 C30 C29 C30 C30 C29 
+            builder.Add(0b1110100010110); // 2152 C30 C30 C30 C29 C30 C29 C29 C29 C30 C29 C30 C30 
+            builder.Add(0b0110101010010); // 2153 C29 C30 C30 C29 C30 L29 C30 C29 C30 C29 C29 C30 C29 
+            builder.Add(0b1101101010010); // 2154 C30 C30 C29 C30 C30 C29 C30 C29 C30 C29 C29 C30 
+            builder.Add(0b0101101101010); // 2155 C29 C30 C29 C30 C30 C29 C30 C30 C29 C30 C29 C30 
+            builder.Add(0b0010101101101); // 2156 C29 C29 C30 L29 C30 C29 C30 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b0010101011100); // 2157 C29 C29 C30 C29 C30 C29 C30 C29 C30 C30 C30 C29 
+            builder.Add(0b1010001011101); // 2158 C30 C29 C30 C29 C29 C29 C30 L29 C30 C30 C30 C29 C30 
+            builder.Add(0b1010001011010); // 2159 C30 C29 C30 C29 C29 C29 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b1101000101010); // 2160 C30 C30 C29 C30 C29 C29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b1101010010101); // 2161 C30 C30 C29 C30 C29 C30 L29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b1011010100100); // 2162 C30 C29 C30 C30 C29 C30 C29 C30 C29 C29 C30 C29 
+            builder.Add(0b1101011010010); // 2163 C30 C30 C29 C30 C29 C30 C30 C29 C30 C29 C29 C30 
+            builder.Add(0b0101101011010); // 2164 C29 C30 C29 C30 L30 C29 C30 C29 C30 C30 C29 C30 C29 
+            builder.Add(0b0101010110110); // 2165 C29 C30 C29 C30 C29 C30 C29 C30 C30 C29 C30 C30 
+            builder.Add(0b0010101011011); // 2166 C29 C29 C30 C29 C30 C29 C30 C29 C30 C30 L29 C30 C30 
+            builder.Add(0b0100010110110); // 2167 C29 C30 C29 C29 C29 C30 C29 C30 C30 C29 C30 C30 
+            builder.Add(0b1010001010110); // 2168 C30 C29 C30 C29 C29 C29 C30 C29 C30 C29 C30 C30 
+            builder.Add(0b1010100101011); // 2169 C30 C29 C30 C29 C30 C29 L29 C30 C29 C30 C29 C30 C30 
+            builder.Add(0b1010100101010); // 2170 C30 C29 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b1011010010100); // 2171 C30 C29 C30 C30 C29 C30 C29 C29 C30 C29 C30 C29 
+            builder.Add(0b1011010101010); // 2172 C30 C29 C30 C30 C29 L30 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010110101010); // 2173 C30 C29 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101010110110); // 2174 C29 C30 C29 C30 C29 C30 C29 C30 C30 C29 C30 C30 
+            builder.Add(0b0010010110111); // 2175 C29 C29 C30 L29 C29 C30 C29 C30 C30 C29 C30 C30 C30 
+            builder.Add(0b0100010101110); // 2176 C29 C30 C29 C29 C29 C30 C29 C30 C29 C30 C30 C30 
+            builder.Add(0b0110001010111); // 2177 C29 C30 C30 C29 C29 C29 C30 L29 C30 C29 C30 C30 C30 
+            builder.Add(0b0101001010110); // 2178 C29 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 
+            builder.Add(0b0110100101010); // 2179 C29 C30 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0110110010101); // 2180 C29 C30 C30 C29 C30 C30 L29 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101101010100); // 2181 C29 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010101101010); // 2182 C30 C29 C30 C29 C30 C29 C30 C30 C29 C30 C29 C30 
+            builder.Add(0b0101001101101); // 2183 C29 C30 C29 C30 L29 C29 C30 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b0100101011100); // 2184 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 C29 
+            builder.Add(0b1010010101110); // 2185 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 
+            builder.Add(0b0101001010110); // 2186 C29 C30 L29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C29 
+            builder.Add(0b1101001010100); // 2187 C30 C30 C29 C30 C29 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1110100101010); // 2188 C30 C30 C30 C29 C30 C29 L29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1101010101010); // 2189 C30 C30 C29 C30 C29 C30 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101101010100); // 2190 C29 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010101101010); // 2191 C30 C29 C30 C29 C30 L29 C30 C30 C29 C30 C29 C30 C29 
+            builder.Add(0b1010011011010); // 2192 C30 C29 C30 C29 C29 C30 C30 C29 C30 C30 C29 C30 
+            builder.Add(0b0100101011100); // 2193 C29 C30 C29 C29 C30 C29 C30 C29 C30 C30 C30 C29 
+            builder.Add(0b1010010101011); // 2194 C30 C29 C30 L29 C29 C30 C29 C30 C29 C30 C29 C30 C30 
+            builder.Add(0b1010010011010); // 2195 C30 C29 C30 C29 C29 C30 C29 C29 C30 C30 C29 C30 
+            builder.Add(0b1101001001011); // 2196 C30 C30 C29 C30 C29 C29 C30 L29 C29 C30 C29 C30 C30 
+            builder.Add(0b1011001010010); // 2197 C30 C29 C30 C30 C29 C29 C30 C29 C30 C29 C29 C30 
+            builder.Add(0b1011010101010); // 2198 C30 C29 C30 C30 C29 C30 C29 C30 C29 C30 C29 C30 
+            builder.Add(0b0101011010101); // 2199 C29 C30 C29 C30 C29 C30 L30 C29 C30 C29 C30 C29 C30 
             RiCountOfYueTable = builder.MoveToImmutable();
         }
 

@@ -10,7 +10,8 @@ public readonly struct Ganzhi :
     IComparable<Ganzhi>, IEquatable<Ganzhi>,
     IEqualityOperators<Ganzhi, Ganzhi, bool>,
     IAdditionOperators<Ganzhi, int, Ganzhi>,
-    ISubtractionOperators<Ganzhi, int, Ganzhi>
+    ISubtractionOperators<Ganzhi, int, Ganzhi>,
+    IFormattable
 {
     /// <summary>
     /// 干支的序数。
@@ -124,7 +125,39 @@ public readonly struct Ganzhi :
     /// <inheritdoc/>
     public override string ToString()
     {
-        return $"{this.Tiangan}{this.Dizhi.ToString().ToLowerInvariant()}";
+        return this.ToString(null, null);
+    }
+
+    /// <summary>
+    /// 按照指定格式转换为字符串。
+    /// Convert to a string with the given format.
+    /// </summary>
+    /// <param name="format">
+    /// 要使用的格式。
+    /// <c>"G"</c> 表示拼音字母； <c>"C"</c> 表示中文。
+    /// The format to be used.
+    /// <c>"G"</c> represents the phonetic alphabets and <c>"C"</c> represents chinese characters.
+    /// </param>
+    /// <param name="formatProvider">
+    /// 不会使用此参数。
+    /// This parameter will won't be used.
+    /// </param>
+    /// <returns>
+    /// 结果。
+    /// The result.
+    /// </returns>
+    /// <exception cref="FormatException">
+    /// 给出的格式化字符串不受支持。
+    /// The given format is not supported.
+    /// </exception>
+    public string ToString(string? format, IFormatProvider? formatProvider)
+    {
+        return format switch
+        {
+            "G" or null => $"{this.Tiangan}{this.Dizhi.ToString().ToLowerInvariant()}",
+            "C" => $"{this.Tiangan:C}{this.Dizhi:C}",
+            _ => throw new FormatException()
+        };
     }
 
     /// <inheritdoc/>

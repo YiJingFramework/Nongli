@@ -1,4 +1,5 @@
 ﻿using Lunar;
+using System.Diagnostics;
 
 namespace ConversionTableGenerator.PropertyWriters.Lunar;
 internal sealed class LunarConstantProperties : IPropertyWriter
@@ -6,6 +7,7 @@ internal sealed class LunarConstantProperties : IPropertyWriter
     private readonly int startingYear;
     public LunarConstantProperties(int startingYear)
     {
+        Debug.Assert(startingYear >= 0, "InChineseExtensions 不支持小于零者");
         this.startingYear = startingYear;
     }
 

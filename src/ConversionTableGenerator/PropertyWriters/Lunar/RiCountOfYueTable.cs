@@ -1,4 +1,5 @@
 ﻿using Lunar;
+using Lunar.EightChar;
 using System.Diagnostics;
 using System.Text;
 
@@ -32,11 +33,13 @@ internal sealed class RiCountOfYueTable : IPropertyWriter
             bool hasRunyue = false;
 
             var comment = new StringBuilder();
-            foreach (var yue in LunarYear.FromYear(year).MonthsInYear)
+            var yues = LunarYear.FromYear(year).MonthsInYear;
+            Debug.Assert(yues[^1].Month is 12, "不支持非十二个月（不含闰月）者");
+            foreach (var yue in yues)
             {
                 if (yue.Leap)
                 {
-                    Debug.Assert(hasRunyue is false);
+                    Debug.Assert(hasRunyue is false, "不支持两个闰月");
                     hasRunyue = true;
                     _ = comment.Append('L');
                 }
