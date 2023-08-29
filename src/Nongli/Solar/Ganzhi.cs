@@ -150,7 +150,7 @@ public readonly struct Ganzhi :
     /// 给出的格式化字符串不受支持。
     /// The given format is not supported.
     /// </exception>
-    public string ToString(string? format, IFormatProvider? formatProvider)
+    public string ToString(string? format, IFormatProvider? formatProvider = null)
     {
         return format switch
         {
