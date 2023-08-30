@@ -29,14 +29,14 @@ public class LunarNianTests
                 Assert.AreEqual(yearL.Year, nian.Year);
 
                 var monthsL = yearL.MonthsInYear;
-                Assert.AreEqual(monthsL.Count, nian.YueList.Count);
-                foreach (var (yue, monthL, i) in nian.YueList.Zip(monthsL, Enumerable.Range(0, 100)))
+                Assert.AreEqual(monthsL.Count, nian.Yues.Count);
+                foreach (var (yue, monthL, i) in nian.Yues.Zip(monthsL, Enumerable.Range(0, 100)))
                 {
                     Assert.AreEqual(nian, yue.Nian);
-                    Assert.AreEqual(i, yue.YueIndexInNian);
+                    Assert.AreEqual(i, yue.IndexInNian);
 
                     Assert.AreEqual(monthL.Leap, yue.IsRunyue);
-                    Assert.AreEqual(Math.Abs(monthL.Month), yue.Number);
+                    Assert.AreEqual(Math.Abs(monthL.Month), yue.Index);
                     Assert.AreEqual(1, yue.IndexOfFirstRi);
                     Assert.AreEqual(monthL.DayCount, yue.RiCount);
                 }
@@ -67,13 +67,13 @@ public class LunarNianTests
             Assert.IsTrue(nian1.GetHashCode() == nian2.GetHashCode());
             Assert.AreEqual($"{nian1.Ganzhi}{nian1.Year}", nian1.ToString());
 
-            foreach (var (yue1, yue2) in nian1.YueList.Zip(nian2.YueList))
+            foreach (var (yue1, yue2) in nian1.Yues.Zip(nian2.Yues))
             {
                 Assert.IsTrue(yue1.Equals(yue2));
                 Assert.AreEqual(0, yue1.CompareTo(yue2));
                 Assert.IsTrue(yue1.GetHashCode() == yue2.GetHashCode());
                 Assert.AreEqual(
-                    $"{(yue1.IsRunyue ? 'L' : 'C')}{yue1.Number} ({yue1.Nian}[{yue1.YueIndexInNian}])",
+                    $"{(yue1.IsRunyue ? 'L' : 'C')}{yue1.Index} ({yue1.Nian}[{yue1.IndexInNian}])",
                     yue1.ToString());
 
                 _ = Assert.ThrowsException<ArgumentOutOfRangeException>(
@@ -82,7 +82,7 @@ public class LunarNianTests
                     () => yue1.GetDateTime(yue1.RiCount + 1, Dizhi.Zi));
 
                 var d = Random.Shared.Next(1, yue1.RiCount + 1);
-                var t = new Dizhi(Random.Shared.Next(1, 13));
+                var t = (Dizhi)(Random.Shared.Next(1, 13));
                 var ri = yue1.GetDateTime(d, t);
                 Assert.AreEqual(yue1, ri.LunarYue);
                 Assert.AreEqual(nian1, ri.LunarNian);
@@ -90,7 +90,7 @@ public class LunarNianTests
                 Assert.AreEqual(t, ri.Shi);
             }
 
-            foreach (var (yue1, yue2) in nian1.YueList.Zip(nian2.YueList.Skip(1)))
+            foreach (var (yue1, yue2) in nian1.Yues.Zip(nian2.Yues.Skip(1)))
             {
                 Assert.AreEqual(-1, yue1.CompareTo(yue2));
                 Assert.AreEqual(1, yue2.CompareTo(yue1));
@@ -102,8 +102,8 @@ public class LunarNianTests
             Assert.AreEqual(r1.Equals(r2), nian1.Equals(nian3));
             Assert.AreEqual(nian1.Year.CompareTo(nian3.Year), nian1.CompareTo(nian3));
 
-            var y1r = nian1.YueList.OrderBy(_ => Random.Shared.Next());
-            var y3r = nian3.YueList.OrderBy(_ => Random.Shared.Next());
+            var y1r = nian1.Yues.OrderBy(_ => Random.Shared.Next());
+            var y3r = nian3.Yues.OrderBy(_ => Random.Shared.Next());
             foreach (var (yue1, yue3) in y1r.Zip(y3r))
             {
                 if (nian1.CompareTo(nian3) is not 0)

@@ -48,7 +48,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
     /// 月。
     /// The Yue.
     /// </summary>
-    public int Yue => this.LunarYue.Number;
+    public int Yue => this.LunarYue.Index;
     /// <summary>
     /// 指示月是否为闰月。
     /// Indicate whether the Yue is a Runyue.
@@ -105,11 +105,11 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
 
         var restDayCount = dayNumber - LunarTables.NianStartDayNumberTable[nianIndex];
         var nian = new LunarNian(nianIndex);
-        foreach (var yue in nian.YueList)
+        foreach (var yue in nian.Yues)
         {
             var newRest = restDayCount - yue.RiCount;
             if (newRest < 0)
-                return new(yue, restDayCount + 1, new((dateTime.Hour + 3) / 2));
+                return new(yue, restDayCount + 1, (Dizhi)((dateTime.Hour + 3) / 2));
             restDayCount = newRest;
         }
         throw NotSupportedDateTime(originalDateTime);
@@ -129,9 +129,9 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
     {
         var nianIndex = this.lunarNian.NianIndex;
         var dayNumber = LunarTables.NianStartDayNumberTable[nianIndex];
-        foreach (var yue in new LunarNian(nianIndex).YueList)
+        foreach (var yue in new LunarNian(nianIndex).Yues)
         {
-            if (yue.YueIndexInNian == this.LunarYue.YueIndexInNian)
+            if (yue.IndexInNian == this.LunarYue.IndexInNian)
             {
                 dayNumber += this.Ri - 1;
                 break;
@@ -139,7 +139,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
             dayNumber += yue.RiCount;
         }
         var dateOnly = DateOnly.FromDayNumber(dayNumber);
-        return dateOnly.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
+        return dateOnly.ToDateTime(new TimeOnly(((int)this.Shi - 1) * 2, 0, 0));
     }
 
     /// <inheritdoc />

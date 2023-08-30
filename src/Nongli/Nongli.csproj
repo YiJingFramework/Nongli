@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 
-		<Version>1.1.0</Version>
+		<Version>2.0.0</Version>
 		<PackageId>YiJingFramework.Nongli</PackageId>
 		<PackageProjectUrl>https://github.com/YiJingFramework/Nongli/wiki</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/YiJingFramework/Nongli.git</RepositoryUrl>
@@ -20,7 +20,7 @@
 		<Company>YiJingFramework</Company>
 		<PackageIcon>Taichi.png</PackageIcon>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>YiJingFramework;农历;Nongli;The Chinese Lunisolar Calendar;The Chinese Calendar;The Lunar Calendar</PackageTags>
+		<PackageTags>YiJingFramework;农历;Nongli;Lunar;LunisolarCalendar;LunarCalendar;ChineseCalendar;ChineseLunisolarCalendar</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -36,7 +36,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="1.3.0" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="2.0.0" />
 	</ItemGroup>
 
 </Project>

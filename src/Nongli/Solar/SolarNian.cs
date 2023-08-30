@@ -19,7 +19,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
 
         this.NianIndex = nianIndex;
         this.Year = this.NianIndex + SolarTables.STARTING_NIAN;
-        this.Ganzhi = new(SolarTables.STARTING_NIAN_GANZHI + this.NianIndex);
+        this.Ganzhi = Ganzhi.FromIndex(SolarTables.STARTING_NIAN_GANZHI + this.NianIndex);
 
         this.yueListLazy = new(this.LoadYueList, true);
     }
@@ -51,7 +51,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
         jieqiIndex++;
         var nextJieDayNumber = DateOnly.FromDateTime(nextJie).DayNumber;
 
-        var ganzhi = new Ganzhi((this.Ganzhi.Tiangan.Index % 5) * 12 - 9);
+        var ganzhi = Ganzhi.FromIndex(((int)this.Ganzhi.Tiangan % 5) * 12 - 9);
 
         for (int i = 0; i < 12; i++)
         {
@@ -71,7 +71,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
                 Jieling = jie,
                 Zhongqi = qi,
                 RiCount = nextJieDayNumber - jieDayNumber,
-                GanzhiOfFirstRi = new(jieDayNumber - SolarTables.RI_GANZHI_GUIHAI),
+                GanzhiOfFirstRi = Ganzhi.FromIndex(jieDayNumber - SolarTables.RI_GANZHI_GUIHAI),
                 Ganzhi = ganzhi
             });
             ganzhi = ganzhi.Next();

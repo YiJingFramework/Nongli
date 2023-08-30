@@ -121,7 +121,7 @@ public class SolarNianTests
                     () => yue1.GetDateTime(yue1.GanzhiOfFirstRi + yue1.RiCount, Dizhi.Zi));
 
                 var d = yue1.GanzhiOfFirstRi + Random.Shared.Next(0, yue1.RiCount);
-                var t = new Dizhi(Random.Shared.Next(1, 13));
+                var t = (Dizhi)(Random.Shared.Next(1, 13));
                 var ri = yue1.GetDateTime(d, t);
                 Assert.AreEqual(yue1, ri.SolarYue);
                 Assert.AreEqual(nian1, ri.SolarNian);

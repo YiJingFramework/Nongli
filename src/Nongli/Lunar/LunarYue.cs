@@ -24,18 +24,18 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     }
 
     /// <summary>
-    /// 此月在 <seealso cref="LunarNian.YueList"/> 中的序号。
-    /// The index of this Yue in <seealso cref="LunarNian.YueList"/>.
+    /// 此月在 <seealso cref="LunarNian.Yues"/> 中的序号。
+    /// The index of this Yue in <seealso cref="LunarNian.Yues"/>.
     /// </summary>
-    public required int YueIndexInNian { get; init; }
+    public required int IndexInNian { get; init; }
 
     /// <summary>
     /// 月的序数。
-    /// 与 <seealso cref="YueIndexInNian"/> 不同，这个属性从 <c>1</c> 开始且计数时跳过闰月。
+    /// 与 <seealso cref="IndexInNian"/> 不同，这个属性从 <c>1</c> 开始且计数时跳过闰月。
     /// The index of this Yue.
-    /// Unlike <seealso cref="YueIndexInNian"/>, this property starts from <c>1</c> and the Runyues are skipped when counting.
+    /// Unlike <seealso cref="IndexInNian"/>, this property starts from <c>1</c> and the Runyues are skipped when counting.
     /// </summary>
-    public required int Number { get; init; }
+    public required int Index { get; init; }
 
     /// <summary>
     /// 指示此月是否为闰月。
@@ -89,7 +89,7 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     /// <inheritdoc />
     public override string ToString()
     {
-        return $"{(this.IsRunyue ? 'L' : 'C')}{this.Number} ({this.Nian}[{this.YueIndexInNian}])";
+        return $"{(this.IsRunyue ? 'L' : 'C')}{this.Index} ({this.Nian}[{this.IndexInNian}])";
     }
     #endregion
 
@@ -101,7 +101,7 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
         if (result is 0)
         {
             Debug.Assert(other is not null);
-            return this.YueIndexInNian.CompareTo(other.YueIndexInNian);
+            return this.IndexInNian.CompareTo(other.IndexInNian);
         }
         return result;
     }
@@ -111,7 +111,7 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     {
         if (!this.nianIndex.Equals(other?.nianIndex))
             return false;
-        return this.YueIndexInNian.Equals(other.YueIndexInNian);
+        return this.IndexInNian.Equals(other.IndexInNian);
     }
 
     /// <inheritdoc />
@@ -123,7 +123,7 @@ public sealed class LunarYue : IComparable<LunarYue>, IEquatable<LunarYue>
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.nianIndex, this.YueIndexInNian);
+        return HashCode.Combine(this.nianIndex, this.IndexInNian);
     }
     #endregion
 }

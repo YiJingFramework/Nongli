@@ -17,9 +17,9 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
 
         this.NianIndex = checkedNianIndex;
         this.Year = this.NianIndex + LunarTables.STARTING_NIAN;
-        this.Ganzhi = new(LunarTables.STARTING_NIAN_GANZHI + this.NianIndex);
+        this.Ganzhi = Ganzhi.FromIndex(LunarTables.STARTING_NIAN_GANZHI + this.NianIndex);
 
-        this.yueListLazy = new(this.LoadYueList, true);
+        this.yuesLazy = new(this.LoadYueList, true);
     }
 
     internal int NianIndex { get; }
@@ -36,12 +36,12 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
     /// </summary>
     public Ganzhi Ganzhi { get; }
 
-    private readonly Lazy<IReadOnlyList<LunarYue>> yueListLazy;
+    private readonly Lazy<IReadOnlyList<LunarYue>> yuesLazy;
     /// <summary>
     /// 此年中的月。
     /// Yues in this Nian.
     /// </summary>
-    public IReadOnlyList<LunarYue> YueList => this.yueListLazy.Value;
+    public IReadOnlyList<LunarYue> Yues => this.yuesLazy.Value;
     private IReadOnlyList<LunarYue> LoadYueList()
     {
         var yueCount = LunarTables.RunyueIndexTable[this.NianIndex] is 0 ? 12 : 13;
@@ -58,8 +58,8 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
                 builder.Add(new LunarYue()
                 {
                     Nian = this,
-                    YueIndexInNian = i,
-                    Number = yue,
+                    IndexInNian = i,
+                    Index = yue,
                     IsRunyue = false,
                     IndexOfFirstRi = 1,
                     RiCount = (riCount & mask) > 0 ? 30 : 29
@@ -78,8 +78,8 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
                 builder.Add(new LunarYue()
                 {
                     Nian = this,
-                    YueIndexInNian = i,
-                    Number = yue,
+                    IndexInNian = i,
+                    Index = yue,
                     IsRunyue = false,
                     IndexOfFirstRi = 1,
                     RiCount = (riCount & mask) > 0 ? 30 : 29
@@ -91,8 +91,8 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
                 builder.Add(new LunarYue()
                 {
                     Nian = this,
-                    YueIndexInNian = i,
-                    Number = i,
+                    IndexInNian = i,
+                    Index = i,
                     IsRunyue = true,
                     IndexOfFirstRi = 1,
                     RiCount = (riCount & mask) > 0 ? 30 : 29
@@ -105,8 +105,8 @@ public sealed class LunarNian : IComparable<LunarNian>, IEquatable<LunarNian>
                 builder.Add(new LunarYue()
                 {
                     Nian = this,
-                    YueIndexInNian = i,
-                    Number = i,
+                    IndexInNian = i,
+                    Index = i,
                     IsRunyue = false,
                     IndexOfFirstRi = 1,
                     RiCount = (riCount & mask) > 0 ? 30 : 29

@@ -95,7 +95,7 @@ public class SolarDateTimeTests
             var dt1 = SolarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
             var dt2 = SolarNian.FromGregorian(2023).YueList
                 .Single(x => x.Ganzhi.Dizhi == Dizhi.Shen)
-                .GetDateTime(new Ganzhi(Tiangan.Bing, Dizhi.Chen), Dizhi.Wu);
+                .GetDateTime(Ganzhi.FromGanzhi(Tiangan.Bing, Dizhi.Chen), Dizhi.Wu);
             Assert.IsTrue(dt1.Equals(dt2));
             Assert.AreEqual(0, dt1.CompareTo(dt2));
             Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
@@ -117,8 +117,8 @@ public class SolarDateTimeTests
             if (compareResult == 0)
                 compareResult = ri1.CompareTo(ri2);
 
-            var shi1 = new Dizhi(Random.Shared.Next(1, 13));
-            var shi2 = new Dizhi(Random.Shared.Next(1, 13));
+            var shi1 = (Dizhi)(Random.Shared.Next(1, 13));
+            var shi2 = (Dizhi)(Random.Shared.Next(1, 13));
             if (compareResult == 0)
                 compareResult = shi1.CompareTo(shi2);
 
