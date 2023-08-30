@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.Diagnostics;
-using YiJingFramework.PrimitiveTypes;
 
 namespace YiJingFramework.Nongli.Solar;
 

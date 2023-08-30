@@ -131,7 +131,7 @@ public static class LunarDateTimeInChineseExtensions
     /// The result.
     /// </returns>
     public static string RiInChinese(
-        this LunarDateTime lunar, 
+        this LunarDateTime lunar,
         bool useNianFor20s = true)
     {
         var (tens, ones) = Math.DivRem(lunar.Ri, 10);

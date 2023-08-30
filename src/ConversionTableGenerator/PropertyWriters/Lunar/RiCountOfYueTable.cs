@@ -1,5 +1,4 @@
 ﻿using Lunar;
-using Lunar.EightChar;
 using System.Diagnostics;
 using System.Text;
 

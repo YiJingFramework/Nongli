@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Diagnostics;
-using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.Nongli.Solar;
 
 namespace YiJingFramework.Nongli.Lunar;
 

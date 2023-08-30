@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Numerics;
+using YiJingFramework.PrimitiveTypes;
 
-namespace YiJingFramework.PrimitiveTypes;
+namespace YiJingFramework.Nongli.Solar;
 
 /// <summary>
 /// 干支。
@@ -22,7 +23,7 @@ public readonly struct Ganzhi :
     /// The index of the Ganzhi.
     /// For example, Jiazi's index is one.
     /// </summary>
-    public int Index => indexMinusOne + 1;
+    public int Index => this.indexMinusOne + 1;
 
     /// <summary>
     /// 天干部分。
@@ -107,7 +108,7 @@ public readonly struct Ganzhi :
         if (tianganI % 2 != dizhiI % 2)
             throw new ArgumentException(
                 $"The Yinyangs of the Tiangan {tiangan} and the Dizhi {dizhi} do not match.");
-        return new Ganzhi(6 * tianganI - 5 * dizhiI - 1);
+        return FromIndex(6 * tianganI - 5 * dizhiI);
     }
 
 
