@@ -119,7 +119,7 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
             throw NotSupportedDateTime(originalDateTime);
 
         var nian = new SolarNian(jieqiIndex / 24);
-        var yue = nian.YueList[(jieqiIndex % 24) / 2];
+        var yue = nian.Yues[(jieqiIndex % 24) / 2];
         var jie = yue.Jieling;
         var jieDayNumber = DateOnly.FromDateTime(jie).DayNumber;
         var daydifference = DateOnly.FromDateTime(dateTime).DayNumber - jieDayNumber;

@@ -34,8 +34,8 @@ public class SolarDateTimeTests
             Assert.AreEqual(expected.TimeZhi, actual.Shi.Dizhi.ToString("C"));
         }
 
-        var minDateTime = SolarNian.MinSupportedNian.YueList[0].GetDateTime(
-            SolarNian.MinSupportedNian.YueList[0].GanzhiOfFirstRi,
+        var minDateTime = SolarNian.MinSupportedNian.Yues[0].GetDateTime(
+            SolarNian.MinSupportedNian.Yues[0].GanzhiOfFirstRi,
             Dizhi.Zi).ToGregorian();
         {
             var minSolarL = L.Lunar.FromYmdHms(
@@ -47,7 +47,7 @@ public class SolarDateTimeTests
                 minDateTime);
         }
 
-        var maxYue = SolarNian.MaxSupportedNian.YueList[11];
+        var maxYue = SolarNian.MaxSupportedNian.Yues[11];
         var maxDateTime = maxYue.GetDateTime(
             maxYue.GanzhiOfFirstRi + maxYue.RiCount - 1,
             Dizhi.Hai).ToGregorian();
@@ -93,7 +93,7 @@ public class SolarDateTimeTests
     {
         {
             var dt1 = SolarDateTime.FromGregorian(new DateTime(2023, 8, 26, 11, 21, 10));
-            var dt2 = SolarNian.FromGregorian(2023).YueList
+            var dt2 = SolarNian.FromGregorian(2023).Yues
                 .Single(x => x.Ganzhi.Dizhi == Dizhi.Shen)
                 .GetDateTime(Ganzhi.FromGanzhi(Tiangan.Bing, Dizhi.Chen), Dizhi.Wu);
             Assert.IsTrue(dt1.Equals(dt2));
@@ -108,8 +108,8 @@ public class SolarDateTimeTests
             var nian2 = SolarNian.FromGregorian(Random.Shared.Next(
                 SolarNian.MinSupportedNian.Year, SolarNian.MaxSupportedNian.Year + 1));
 
-            var yue1 = nian1.YueList[Random.Shared.Next(0, nian1.YueList.Count)];
-            var yue2 = nian2.YueList[Random.Shared.Next(0, nian2.YueList.Count)];
+            var yue1 = nian1.Yues[Random.Shared.Next(0, nian1.Yues.Count)];
+            var yue2 = nian2.Yues[Random.Shared.Next(0, nian2.Yues.Count)];
             var compareResult = yue1.CompareTo(yue2);
 
             var ri1 = Random.Shared.Next(0, yue1.RiCount);

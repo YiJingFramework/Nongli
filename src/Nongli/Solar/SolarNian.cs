@@ -20,7 +20,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
         this.Year = this.NianIndex + SolarTables.STARTING_NIAN;
         this.Ganzhi = Ganzhi.FromIndex(SolarTables.STARTING_NIAN_GANZHI + this.NianIndex);
 
-        this.yueListLazy = new(this.LoadYueList, true);
+        this.yuesLazy = new(this.LoadYueList, true);
     }
 
     internal int NianIndex { get; }
@@ -36,12 +36,12 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
     /// This Nian's Ganzhi.
     /// </summary>
     public Ganzhi Ganzhi { get; }
-    private readonly Lazy<IReadOnlyList<SolarYue>> yueListLazy;
+    private readonly Lazy<IReadOnlyList<SolarYue>> yuesLazy;
     /// <summary>
     /// 此年中的月。
     /// Yues in this Nian.
     /// </summary>
-    public IReadOnlyList<SolarYue> YueList => this.yueListLazy.Value;
+    public IReadOnlyList<SolarYue> Yues => this.yuesLazy.Value;
     private IReadOnlyList<SolarYue> LoadYueList()
     {
         var builder = ImmutableArray.CreateBuilder<SolarYue>(12);
@@ -66,7 +66,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
             builder.Add(new SolarYue()
             {
                 Nian = this,
-                YueIndexInNian = i,
+                IndexInNian = i,
                 Jieling = jie,
                 Zhongqi = qi,
                 RiCount = nextJieDayNumber - jieDayNumber,

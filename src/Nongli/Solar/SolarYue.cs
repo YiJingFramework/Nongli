@@ -24,10 +24,10 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
     }
 
     /// <summary>
-    /// 此月在 <seealso cref="SolarNian.YueList"/> 中的序号。
-    /// The index of this Yue in <seealso cref="SolarNian.YueList"/>.
+    /// 此月在 <seealso cref="SolarNian.Yues"/> 中的序号。
+    /// The index of this Yue in <seealso cref="SolarNian.Yues"/>.
     /// </summary>
-    public required int YueIndexInNian { get; init; }
+    public required int IndexInNian { get; init; }
 
     /// <summary>
     /// 月干支。
@@ -94,7 +94,7 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
     /// <inheritdoc />
     public override string ToString()
     {
-        return $"{this.Ganzhi} ({this.Nian}[{this.YueIndexInNian}])";
+        return $"{this.Ganzhi} ({this.Nian}[{this.IndexInNian}])";
     }
     #endregion
 
@@ -106,7 +106,7 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
         if (result is 0)
         {
             Debug.Assert(other is not null);
-            return this.YueIndexInNian.CompareTo(other.YueIndexInNian);
+            return this.IndexInNian.CompareTo(other.IndexInNian);
         }
         return result;
     }
@@ -116,7 +116,7 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
     {
         if (!this.nianIndex.Equals(other?.nianIndex))
             return false;
-        return this.YueIndexInNian.Equals(other.YueIndexInNian);
+        return this.IndexInNian.Equals(other.IndexInNian);
     }
 
     /// <inheritdoc />
@@ -128,7 +128,7 @@ public sealed class SolarYue : IComparable<SolarYue>, IEquatable<SolarYue>
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.nianIndex, this.YueIndexInNian);
+        return HashCode.Combine(this.nianIndex, this.IndexInNian);
     }
     #endregion
 }
