@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 
-		<Version>2.0.1</Version>
+		<Version>2.0.2</Version>
 		<PackageId>YiJingFramework.Nongli</PackageId>
 		<PackageProjectUrl>https://github.com/YiJingFramework/Nongli/wiki</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/YiJingFramework/Nongli.git</RepositoryUrl>
@@ -36,7 +36,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="2.0.0" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="2.1.0" />
 	</ItemGroup>
 
 </Project>

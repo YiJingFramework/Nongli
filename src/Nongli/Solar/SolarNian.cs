@@ -50,7 +50,7 @@ public sealed class SolarNian : IComparable<SolarNian>, IEquatable<SolarNian>
         jieqiIndex++;
         var nextJieDayNumber = DateOnly.FromDateTime(nextJie).DayNumber;
 
-        var ganzhi = Ganzhi.FromIndex(((int)this.Ganzhi.Tiangan % 5) * 12 - 9);
+        var ganzhi = Ganzhi.FromIndex((this.Ganzhi.Tiangan.Index % 5) * 12 - 9);
 
         for (int i = 0; i < 12; i++)
         {

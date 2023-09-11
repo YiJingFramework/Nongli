@@ -29,13 +29,13 @@ public readonly struct Ganzhi :
     /// 天干部分。
     /// The Tiangan part.
     /// </summary>
-    public Tiangan Tiangan => (Tiangan)this.Index;
+    public Tiangan Tiangan => Tiangan.FromIndex(this.Index);
 
     /// <summary>
     /// 地支部分。
     /// The Dizhi part.
     /// </summary>
-    public Dizhi Dizhi => (Dizhi)this.Index;
+    public Dizhi Dizhi => Dizhi.FromIndex(this.Index);
 
     /// <summary>
     /// 析构此实体到天干和地支。
@@ -52,8 +52,8 @@ public readonly struct Ganzhi :
     public void Deconstruct(out Tiangan tiangan, out Dizhi dizhi)
     {
         var index = this.Index;
-        tiangan = (Tiangan)index;
-        dizhi = (Dizhi)index;
+        tiangan = Tiangan.FromIndex(index);
+        dizhi = Dizhi.FromIndex(index);
     }
 
     private Ganzhi(int indexMinusOneChecked)
@@ -103,8 +103,8 @@ public readonly struct Ganzhi :
     /// </exception>
     public static Ganzhi FromGanzhi(Tiangan tiangan, Dizhi dizhi)
     {
-        var tianganI = (int)tiangan;
-        var dizhiI = (int)dizhi;
+        var tianganI = tiangan.Index;
+        var dizhiI = dizhi.Index;
         if (tianganI % 2 != dizhiI % 2)
             throw new ArgumentException(
                 $"The Yinyangs of the Tiangan {tiangan} and the Dizhi {dizhi} do not match.");

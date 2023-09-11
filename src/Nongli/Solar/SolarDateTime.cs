@@ -17,7 +17,7 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
         this.SolarYue = yue;
         this.riIndex = riIndex;
         this.Ri = yue.GanzhiOfFirstRi.Next(riIndex);
-        this.Shi = Ganzhi.FromIndex(((int)this.Ri.Tiangan % 5) * 12 - 11 + (int)shi - 1);
+        this.Shi = Ganzhi.FromIndex((this.Ri.Tiangan.Index % 5) * 12 - 11 + shi.Index - 1);
 
         var jielingDayNumber = DateOnly.FromDateTime(yue.Jieling).DayNumber;
         var zhongqiDayNumber = DateOnly.FromDateTime(yue.Zhongqi).DayNumber;
@@ -125,7 +125,7 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
         var daydifference = DateOnly.FromDateTime(dateTime).DayNumber - jieDayNumber;
         if (daydifference >= yue.RiCount)
             throw NotSupportedDateTime(originalDateTime);
-        return new(yue, daydifference, (Dizhi)((dateTime.Hour + 3) / 2));
+        return new(yue, daydifference, Dizhi.FromIndex((dateTime.Hour + 3) / 2));
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public sealed partial class SolarDateTime : IComparable<SolarDateTime>, IEquatab
     {
         var ri = DateOnly.FromDateTime(this.SolarYue.Jieling);
         ri = ri.AddDays(this.riIndex);
-        return ri.ToDateTime(new TimeOnly(((int)this.Shi.Dizhi - 1) * 2, 0, 0));
+        return ri.ToDateTime(new TimeOnly((this.Shi.Dizhi.Index - 1) * 2, 0, 0));
     }
 
     /// <inheritdoc />

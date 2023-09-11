@@ -117,8 +117,8 @@ public class SolarDateTimeTests
             if (compareResult == 0)
                 compareResult = ri1.CompareTo(ri2);
 
-            var shi1 = (Dizhi)(Random.Shared.Next(1, 13));
-            var shi2 = (Dizhi)(Random.Shared.Next(1, 13));
+            var shi1 = Dizhi.FromIndex((Random.Shared.Next(1, 13)));
+            var shi2 = Dizhi.FromIndex((Random.Shared.Next(1, 13)));
             if (compareResult == 0)
                 compareResult = shi1.CompareTo(shi2);
 

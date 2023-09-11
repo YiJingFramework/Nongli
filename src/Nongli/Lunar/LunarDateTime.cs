@@ -110,7 +110,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
         {
             var newRest = restDayCount - yue.RiCount;
             if (newRest < 0)
-                return new(yue, restDayCount + 1, (Dizhi)((dateTime.Hour + 3) / 2));
+                return new(yue, restDayCount + 1, Dizhi.FromIndex((dateTime.Hour + 3) / 2));
             restDayCount = newRest;
         }
         throw NotSupportedDateTime(originalDateTime);
@@ -140,7 +140,7 @@ public sealed partial class LunarDateTime : IComparable<LunarDateTime>, IEquatab
             dayNumber += yue.RiCount;
         }
         var dateOnly = DateOnly.FromDayNumber(dayNumber);
-        return dateOnly.ToDateTime(new TimeOnly(((int)this.Shi - 1) * 2, 0, 0));
+        return dateOnly.ToDateTime(new TimeOnly((this.Shi.Index - 1) * 2, 0, 0));
     }
 
     /// <inheritdoc />

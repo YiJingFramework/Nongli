@@ -82,7 +82,7 @@ public class LunarNianTests
                     () => yue1.GetDateTime(yue1.RiCount + 1, Dizhi.Zi));
 
                 var d = Random.Shared.Next(1, yue1.RiCount + 1);
-                var t = (Dizhi)(Random.Shared.Next(1, 13));
+                var t = Dizhi.FromIndex((Random.Shared.Next(1, 13)));
                 var ri = yue1.GetDateTime(d, t);
                 Assert.AreEqual(yue1, ri.LunarYue);
                 Assert.AreEqual(nian1, ri.LunarNian);
