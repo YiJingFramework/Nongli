@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Nongli.Extensions;
-using YiJingFramework.Nongli.Solar;
 using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GanzhiCombinations;
 
 namespace YiJingFramework.Nongli.Lunar;
 

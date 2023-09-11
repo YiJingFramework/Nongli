@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YiJingFramework.Nongli.Lunar;
 using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GanzhiCombinations;
 using L = Lunar;
 
 namespace YiJingFramework.Nongli.Solar.Tests;

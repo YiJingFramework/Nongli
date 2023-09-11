@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Nongli.Extensions;
 using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GanzhiCombinations;
 
 namespace YiJingFramework.Nongli.Solar;
 
