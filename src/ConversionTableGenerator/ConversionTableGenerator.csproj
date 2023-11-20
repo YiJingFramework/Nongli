@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AppDesignerFolder>TableProperties</AppDesignerFolder>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="lunar-csharp" Version="1.5.5" />
+    <PackageReference Include="lunar-csharp" Version="1.5.7" />
   </ItemGroup>
 
 </Project>

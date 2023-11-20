@@ -1,8 +1,8 @@
 ﻿# YiJingFramework.Nongli
 
-`YiJingFramework.Nongli` 是 [YiJingFramework](https://yijingframework.github.io/) 中的一个包。此包提供了对中国农历的支持。
+`YiJingFramework.Nongli` 是 [YiJingFramework](https://yjfwk.yueyinqiu.top/) 中的一个包。此包提供了对中国农历的支持。
 
-`YiJingFramework.Nongli` is one of the packages of [YiJingFramework](https://github.com/YiJingFramework/YiJingFramework/wiki). This package provides the support of the Chinese Nongli.
+`YiJingFramework.Nongli` is one of the packages of [YiJingFramework](https://yjfwk.yueyinqiu.top/). This package provides the support of the Chinese Nongli.
 
 ## Wiki
 
