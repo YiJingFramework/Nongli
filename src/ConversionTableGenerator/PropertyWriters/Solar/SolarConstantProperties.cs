@@ -24,8 +24,6 @@ internal sealed class SolarConstantProperties : IPropertyWriter
             $"{(new DateOnly(1949, 10, 1).DayNumber - 1) % 60};");
     }
 
-    public void WriteInitialization(StreamWriterWithIndent writer)
-    {
-        writer.WriteLine($"// {nameof(SolarConstantProperties)}");
-    }
+    public bool RequireInitialization => false;
+    public void WriteInitialization(StreamWriterWithIndent writer) { }
 }

@@ -18,17 +18,11 @@ internal sealed class RiCountOfYueTable : IPropertyWriter
 
     public void WriteDefinition(StreamWriterWithIndent writer)
     {
-        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }}");
-    }
-
-    public void WriteInitialization(StreamWriterWithIndent writer)
-    {
-        writer.WriteLine($"// {this.propertyName}");
-        var count = this.endingYear - this.startingYear;
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count});");
+        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }} = [");
+        writer.Indent++;
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
-            writer.Write($"builder.Add(0b");
+            writer.Write($"0b");
             bool hasRunyue = false;
 
             var comment = new StringBuilder();
@@ -56,8 +50,12 @@ internal sealed class RiCountOfYueTable : IPropertyWriter
 
             if (!hasRunyue)
                 writer.Write($"0");
-            writer.WriteLine($"); // {year:0000} {comment}");
+            writer.WriteLine($", // {year:0000} {comment}");
         }
-        writer.WriteLine($"{this.propertyName} = builder.MoveToImmutable();");
+        writer.Indent--;
+        writer.WriteLine($"];");
     }
+
+    public bool RequireInitialization => false;
+    public void WriteInitialization(StreamWriterWithIndent writer) { }
 }

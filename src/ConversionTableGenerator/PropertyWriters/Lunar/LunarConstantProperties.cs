@@ -21,8 +21,6 @@ internal sealed class LunarConstantProperties : IPropertyWriter
         writer.WriteLine($"internal const byte STARTING_NIAN_GANZHI = {ganzhi};");
     }
 
-    public void WriteInitialization(StreamWriterWithIndent writer)
-    {
-        writer.WriteLine($"// {nameof(LunarConstantProperties)}");
-    }
+    public bool RequireInitialization => false;
+    public void WriteInitialization(StreamWriterWithIndent writer) { }
 }

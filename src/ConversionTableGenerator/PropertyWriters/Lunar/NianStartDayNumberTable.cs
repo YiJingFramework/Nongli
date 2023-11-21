@@ -14,21 +14,19 @@ internal sealed class NianStartDayNumberTable : IPropertyWriter
 
     public void WriteDefinition(StreamWriterWithIndent writer)
     {
-        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }}");
-    }
-
-    public void WriteInitialization(StreamWriterWithIndent writer)
-    {
-        writer.WriteLine($"// {this.propertyName}");
-        var count = this.endingYear - this.startingYear;
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count});");
+        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }} = [");
+        writer.Indent++;
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
             var firstDaySolar = global::Lunar.Lunar.FromYmdHms(year, 1, 1).Solar;
             var firstDayDateTime = new DateTime(firstDaySolar.Year, firstDaySolar.Month, firstDaySolar.Day);
             var firstDayDateOnly = DateOnly.FromDateTime(firstDayDateTime);
-            writer.WriteLine($"builder.Add({firstDayDateOnly.DayNumber}); // {firstDayDateOnly:yyyy M-d}");
+            writer.WriteLine($"{firstDayDateOnly.DayNumber}, // {firstDayDateOnly:yyyy M-d}");
         }
-        writer.WriteLine($"{this.propertyName} = builder.MoveToImmutable();");
+        writer.Indent--;
+        writer.WriteLine($"];");
     }
+
+    public bool RequireInitialization => false;
+    public void WriteInitialization(StreamWriterWithIndent writer) { }
 }

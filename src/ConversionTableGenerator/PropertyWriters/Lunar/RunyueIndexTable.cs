@@ -16,20 +16,17 @@ internal sealed class RunyueIndexTable : IPropertyWriter
 
     public void WriteDefinition(StreamWriterWithIndent writer)
     {
-        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }}");
-    }
-
-    public void WriteInitialization(StreamWriterWithIndent writer)
-    {
-        writer.WriteLine($"// {this.propertyName}");
-        var count = this.endingYear - this.startingYear;
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count});");
+        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }} = [");
+        writer.Indent++;
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
             var runyue = LunarYear.FromYear(year).LeapMonth;
-            writer.WriteLine($"builder.Add({runyue}); // {year:0000}");
+            writer.WriteLine($"{runyue}, // {year:0000}");
         }
-        writer.WriteLine($"{this.propertyName} = builder.MoveToImmutable();");
-        writer.WriteLine();
+        writer.Indent--;
+        writer.WriteLine($"];");
     }
+
+    public bool RequireInitialization => false;
+    public void WriteInitialization(StreamWriterWithIndent writer) { }
 }

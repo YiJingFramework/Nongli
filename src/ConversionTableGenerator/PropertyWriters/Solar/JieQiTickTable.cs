@@ -16,14 +16,8 @@ internal sealed class JieQiTickTable : IPropertyWriter
 
     public void WriteDefinition(StreamWriterWithIndent writer)
     {
-        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }}");
-    }
-
-    public void WriteInitialization(StreamWriterWithIndent writer)
-    {
-        writer.WriteLine($"// {this.propertyName}");
-        var count = this.endingYear - this.startingYear;
-        writer.WriteLine($"var builder = ImmutableArray.CreateBuilder<{this.itemType}>({count} * 24 + 1);");
+        writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }} = [");
+        writer.Indent++;
         for (int year = this.startingYear; year < this.endingYear; year++)
         {
             var jieqiList = LunarYear.FromYear(year).JieQiJulianDays
@@ -34,7 +28,7 @@ internal sealed class JieQiTickTable : IPropertyWriter
 
             for (int i = 0; i < 24; i++)
             {
-                writer.WriteLine($"builder.Add({jieqiList[i]}); // {year:0000} {i:00}");
+                writer.WriteLine($"{jieqiList[i]}, // {year:0000} {i:00}");
             }
         }
         {
@@ -43,8 +37,12 @@ internal sealed class JieQiTickTable : IPropertyWriter
                 .Take(1)
                 .Select(x => (long)((x - 1721425.5) * TimeSpan.TicksPerDay))
                 .ToArray();
-            writer.WriteLine($"builder.Add({jieqiList[0]}); // {this.endingYear:0000} {1:00}");
+            writer.WriteLine($"{jieqiList[0]}, // {this.endingYear:0000} {1:00}");
         }
-        writer.WriteLine($"{this.propertyName} = builder.MoveToImmutable();");
+        writer.Indent--;
+        writer.WriteLine($"];");
     }
+
+    public bool RequireInitialization => false;
+    public void WriteInitialization(StreamWriterWithIndent writer) { }
 }

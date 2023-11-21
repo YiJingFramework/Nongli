@@ -29,26 +29,38 @@ var maxYear = 2200;
         property.WriteDefinition(writer);
         writer.WriteLine();
     }
-    writer.WriteLine();
 
-    writer.WriteLine($"static LunarTables()");
-    writer.WriteLine($"{{");
-    writer.Indent++;
-
+    bool constructorWritten = false;
     foreach (var property in properties)
     {
-        writer.WriteLine($"{{");
-        writer.Indent++;
+        if (property.RequireInitialization)
+        {
+            if(!constructorWritten)
+            {
+                constructorWritten = true;
+                writer.WriteLine();
+                writer.WriteLine($"static LunarTables()");
+                writer.WriteLine($"{{");
+                writer.Indent++;
+            }
 
-        property.WriteInitialization(writer);
+            writer.WriteLine($"{{");
+            writer.Indent++;
 
-        writer.Indent--;
-        writer.WriteLine($"}}");
-        writer.WriteLine();
+            property.WriteInitialization(writer);
+
+            writer.Indent--;
+            writer.WriteLine($"}}");
+            writer.WriteLine();
+        }
     }
 
-    writer.Indent--;
-    writer.WriteLine($"}}");
+    if(constructorWritten)
+    {
+        writer.Indent--;
+        writer.WriteLine($"}}");
+    }
+
     writer.Indent--;
     writer.WriteLine($"}}");
 
@@ -72,26 +84,38 @@ var maxYear = 2200;
         property.WriteDefinition(writer);
         writer.WriteLine();
     }
-    writer.WriteLine();
 
-    writer.WriteLine($"static SolarTables()");
-    writer.WriteLine($"{{");
-    writer.Indent++;
-
+    bool constructorWritten = false;
     foreach (var property in properties)
     {
-        writer.WriteLine($"{{");
-        writer.Indent++;
+        if (property.RequireInitialization)
+        {
+            if (!constructorWritten)
+            {
+                constructorWritten = true;
+                writer.WriteLine();
+                writer.WriteLine($"static SolarTables()");
+                writer.WriteLine($"{{");
+                writer.Indent++;
+            }
 
-        property.WriteInitialization(writer);
+            writer.WriteLine($"{{");
+            writer.Indent++;
 
-        writer.Indent--;
-        writer.WriteLine($"}}");
-        writer.WriteLine();
+            property.WriteInitialization(writer);
+
+            writer.Indent--;
+            writer.WriteLine($"}}");
+            writer.WriteLine();
+        }
     }
 
-    writer.Indent--;
-    writer.WriteLine($"}}");
+    if (constructorWritten)
+    {
+        writer.Indent--;
+        writer.WriteLine($"}}");
+    }
+
     writer.Indent--;
     writer.WriteLine($"}}");
 
