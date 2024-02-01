@@ -1,16 +1,8 @@
 ﻿using Lunar;
 
 namespace ConversionTableGenerator.PropertyWriters.Lunar;
-internal sealed class RunyueIndexTable : IPropertyWriter
+internal sealed class RunyueIndexTable(int startingYear, int endingYear) : IPropertyWriter
 {
-    private readonly int startingYear;
-    private readonly int endingYear;
-    public RunyueIndexTable(int startingYear, int endingYear)
-    {
-        this.startingYear = startingYear;
-        this.endingYear = endingYear;
-    }
-
     private readonly string itemType = "byte";
     private readonly string propertyName = nameof(RunyueIndexTable);
 
@@ -18,7 +10,7 @@ internal sealed class RunyueIndexTable : IPropertyWriter
     {
         writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }} = [");
         writer.Indent++;
-        for (int year = this.startingYear; year < this.endingYear; year++)
+        for (int year = startingYear; year < endingYear; year++)
         {
             var runyue = LunarYear.FromYear(year).LeapMonth;
             writer.WriteLine($"{runyue}, // {year:0000}");

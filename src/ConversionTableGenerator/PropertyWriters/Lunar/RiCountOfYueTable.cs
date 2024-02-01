@@ -3,16 +3,8 @@ using System.Diagnostics;
 using System.Text;
 
 namespace ConversionTableGenerator.PropertyWriters.Lunar;
-internal sealed class RiCountOfYueTable : IPropertyWriter
+internal sealed class RiCountOfYueTable(int startingYear, int endingYear) : IPropertyWriter
 {
-    private readonly int startingYear;
-    private readonly int endingYear;
-    public RiCountOfYueTable(int startingYear, int endingYear)
-    {
-        this.startingYear = startingYear;
-        this.endingYear = endingYear;
-    }
-
     private readonly string itemType = "short";
     private readonly string propertyName = nameof(RiCountOfYueTable);
 
@@ -20,7 +12,7 @@ internal sealed class RiCountOfYueTable : IPropertyWriter
     {
         writer.WriteLine($"internal static ImmutableArray<{this.itemType}> {this.propertyName} {{ get; }} = [");
         writer.Indent++;
-        for (int year = this.startingYear; year < this.endingYear; year++)
+        for (int year = startingYear; year < endingYear; year++)
         {
             writer.Write($"0b");
             bool hasRunyue = false;

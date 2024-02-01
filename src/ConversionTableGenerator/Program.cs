@@ -19,6 +19,7 @@ var maxYear = 2200;
         new RunyueIndexTable(minYear, maxYear),
         new RiCountOfYueTable(minYear, maxYear),
     };
+    
 
     using var writer = new StreamWriterWithIndent(file);
     writer.WriteLine($"internal static class LunarTables");
