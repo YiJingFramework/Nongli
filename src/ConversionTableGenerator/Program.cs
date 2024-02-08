@@ -22,6 +22,8 @@ var maxYear = 2200;
     
 
     using var writer = new StreamWriterWithIndent(file);
+    writer.WriteLine($"namespace YiJingFramework.Nongli.Lunar;");
+    writer.WriteLine();
     writer.WriteLine($"internal static class LunarTables");
     writer.WriteLine($"{{");
     writer.Indent++;
@@ -77,6 +79,8 @@ var maxYear = 2200;
     };
 
     using var writer = new StreamWriterWithIndent(file);
+    writer.WriteLine($"namespace YiJingFramework.Nongli.Solar;");
+    writer.WriteLine();
     writer.WriteLine($"internal static class SolarTables");
     writer.WriteLine($"{{");
     writer.Indent++;

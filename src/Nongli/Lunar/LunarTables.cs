@@ -914,4 +914,3 @@ internal static class LunarTables
     ];
 
 }
-

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="lunar-csharp" Version="1.5.7" />
+    <PackageReference Include="lunar-csharp" Version="1.5.9" />
   </ItemGroup>
 
 </Project>
