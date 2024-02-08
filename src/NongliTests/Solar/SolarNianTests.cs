@@ -96,7 +96,7 @@ public class SolarNianTests
         var min = SolarNian.MinSupportedNian.Year;
         var max = SolarNian.MaxSupportedNian.Year + 1;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 100000; i++)
         {
             var r1 = Random.Shared.Next(min, max);
             var nian1 = SolarNian.FromGregorian(r1);

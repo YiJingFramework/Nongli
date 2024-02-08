@@ -72,7 +72,7 @@ public class SolarDateTimeTests
         }
 
         var testings = EnumerateTestingDateTime();
-        testings = testings.Take(10000).Concat(testings.Reverse().Take(10000));
+        testings = testings.Take(100000).Concat(testings.Reverse().Take(100000));
         foreach (var dt in testings)
         {
             var solarDt = SolarDateTime.FromGregorian(dt);
@@ -102,7 +102,7 @@ public class SolarDateTimeTests
             Assert.IsTrue(dt1.GetHashCode() == dt2.GetHashCode());
         }
 
-        for (int i = 0; i < 100000; i++)
+        for (int i = 0; i < 1000000; i++)
         {
             var nian1 = SolarNian.FromGregorian(Random.Shared.Next(
                 SolarNian.MinSupportedNian.Year, SolarNian.MaxSupportedNian.Year + 1));

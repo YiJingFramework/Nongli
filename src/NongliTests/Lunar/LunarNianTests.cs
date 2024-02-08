@@ -57,7 +57,7 @@ public class LunarNianTests
         var min = LunarNian.MinSupportedNian.Year;
         var max = LunarNian.MaxSupportedNian.Year + 1;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 100000; i++)
         {
             var r1 = Random.Shared.Next(min, max);
             var nian1 = LunarNian.FromGregorian(r1);

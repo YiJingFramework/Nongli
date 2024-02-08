@@ -19,7 +19,7 @@ internal sealed class RiCountOfYueTable(int startingYear, int endingYear) : IPro
 
             var comment = new StringBuilder();
             var yues = LunarYear.FromYear(year).MonthsInYear;
-            Debug.Assert(yues[^1].Month is 12, "不支持非十二个月（不含闰月）者");
+            Debug.Assert(yues[^1].Month is 12 or (-12), "不支持非十二个月（不含闰月）者");
             foreach (var yue in yues)
             {
                 if (yue.Leap)
