@@ -26,7 +26,7 @@ public class SolarDateTimeTests
 
             Assert.AreEqual(expected.MonthGan, actual.Yue.Tiangan.ToString("C"));
             Assert.AreEqual(expected.MonthZhi, actual.Yue.Dizhi.ToString("C"));
-            Assert.AreEqual(expected.Next(1).GetNextJieQi(true).Qi, actual.IsBeforeYueZhongqi);
+            Assert.AreEqual(expected.GetNextJieQi(true).Qi, actual.IsBeforeYueZhongqi);
 
             Assert.AreEqual(expected.DayGan, actual.Ri.Tiangan.ToString("C"));
             Assert.AreEqual(expected.DayZhi, actual.Ri.Dizhi.ToString("C"));

@@ -19,12 +19,12 @@ internal sealed class RiCountOfYueTable(int startingYear, int endingYear) : IPro
 
             var comment = new StringBuilder();
             var yues = LunarYear.FromYear(year).MonthsInYear;
-            Debug.Assert(yues[^1].Month is 12 or (-12), "不支持非十二个月（不含闰月）者");
+            Trace.Assert(yues[^1].Month is 12 or (-12), "不支持非十二个月（不含闰月）者");
             foreach (var yue in yues)
             {
                 if (yue.Leap)
                 {
-                    Debug.Assert(hasRunyue is false, "不支持两个闰月");
+                    Trace.Assert(hasRunyue is false, "不支持两个闰月");
                     hasRunyue = true;
                     _ = comment.Append('L');
                 }
@@ -33,7 +33,7 @@ internal sealed class RiCountOfYueTable(int startingYear, int endingYear) : IPro
                     _ = comment.Append('C');
                 }
 
-                Debug.Assert(yue.DayCount is 29 or 30);
+                Trace.Assert(yue.DayCount is 29 or 30);
 
                 var n = yue.DayCount is 29 ? 0 : 1;
                 writer.Write($"{n}");

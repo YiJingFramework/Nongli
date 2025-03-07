@@ -3,10 +3,6 @@ using ConversionTableGenerator.PropertyWriters.Lunar;
 using ConversionTableGenerator.PropertyWriters.Solar;
 using System.Diagnostics;
 
-#if !DEBUG
-Console.WriteLine("不在 Debug 模式下启动可能导致检查不生效。");
-#endif
-
 var minYear = 1901;
 var maxYear = 9000;
 
@@ -65,7 +61,7 @@ var maxYear = 9000;
     writer.Indent--;
     writer.WriteLine($"}}");
 
-    Debug.Assert(writer.Indent is 0);
+    Trace.Assert(writer.Indent is 0);
 }
 
 {
@@ -120,5 +116,5 @@ var maxYear = 9000;
     writer.Indent--;
     writer.WriteLine($"}}");
 
-    Debug.Assert(writer.Indent is 0);
+    Trace.Assert(writer.Indent is 0);
 }
